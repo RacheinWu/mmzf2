@@ -33,4 +33,6 @@ public class Article {
     private Integer only_fans_can_comment;
     @ApiModelProperty("是否显示封面，1为显示，0为不显示")
     private Integer show_cover_pic;
+    @ApiModelProperty("封面url【本地服务器】")
+    private String coverUrl;
 }

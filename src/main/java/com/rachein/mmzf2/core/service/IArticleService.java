@@ -3,11 +3,13 @@ package com.rachein.mmzf2.core.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rachein.mmzf2.entity.DB.Article;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
+import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleResultVo;
+import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -26,11 +28,20 @@ public interface IArticleService extends IService<Article> {
 
     void send(String media_id);
 
-    void removeByLocalId(String localId);
+    void removeByArticleId(String localId);
 
     void updateByLocalId(String localId, ArticleAddRo updateRo);
 
     void removeArticleById(String localId);
 
-    String view(String localId);
+    ArticleInfoVo view(String localId);
+
+    Long createDraft();
+
+    Long createArticle(Long draftId);
+
+    List<ArticleVo> listArticleByDraftId(Long draftId);
+
+    void removeDraftByDraftId(Long draftId);
+
 }
