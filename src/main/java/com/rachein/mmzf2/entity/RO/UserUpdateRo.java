@@ -24,5 +24,4 @@ public class UserUpdateRo {
     private String firstSchool;
     private String zhunayeDalei;
     private String majority;
-
 }
