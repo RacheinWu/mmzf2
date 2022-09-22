@@ -3,6 +3,7 @@ package com.rachein.mmzf2.entity.DB;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,15 +18,14 @@ import java.time.LocalDateTime;
  * @author 吴远健
  * @since 2022-09-19
  */
-@Getter
-@Setter
+@Data
 @TableName("t_file")
 @ApiModel(value = "File对象", description = "文件")
 public class FileDB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty("文件后缀名 .xxx")
@@ -34,7 +34,7 @@ public class FileDB implements Serializable {
 
     @ApiModelProperty("保存地址")
     @TableField("path")
-    private String path;
+    private String localUrl;
 
     @ApiModelProperty("UUID保存的名字")
     @TableField("name")

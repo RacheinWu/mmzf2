@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class Article {
-    @TableId(type = IdType.INPUT)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private String media_id;
     @ApiModelProperty("要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0")

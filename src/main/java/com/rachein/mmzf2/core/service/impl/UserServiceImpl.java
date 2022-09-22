@@ -9,6 +9,7 @@ import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.entity.RO.UserUpdateRo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import java.sql.Wrapper;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import java.util.Objects;
  * @Description
  * @date 2022/9/21 21:03
  */
+@Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService {
     @Override
     public void updateInfo(String openId, UserUpdateRo info) {

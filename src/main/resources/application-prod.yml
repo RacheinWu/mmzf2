@@ -15,3 +15,10 @@ wechat:
   token-url: https://api.weixin.qq.com/cgi-bin/token
   user-info-url: https://api.weixin.qq.com/cgi-bin/user/info
 
+
+path:
+  file:
+    from: \tuchuang\
+    local: C:\Users\Rache\Documents\file
+  url:
+    loacl: http://192.168.31.151/

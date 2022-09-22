@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 public class Draft {
-    @TableId(type = IdType.INPUT)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;

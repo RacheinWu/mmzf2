@@ -17,7 +17,13 @@ wechat:
 
 path:
   file:
-    from: \tuchuang\
-    local: C:\Users\Rache\Documents\file
+    from: tuchuang
+    local: C:\Users\Rache\Documents\file\
   url:
-    loacl: http://192.168.31.151/
+    local: http://192.168.31.151/
+  reflect:
+    prefix: i/
+
+
+server:
+  port: 80

@@ -7,9 +7,11 @@ import com.rachein.mmzf2.core.mapper.FileMapper;
 import com.rachein.mmzf2.core.service.IArticleService;
 import com.rachein.mmzf2.core.service.IDraftArticleService;
 import com.rachein.mmzf2.core.service.IDraftService;
+import com.rachein.mmzf2.core.service.IFileService;
 import com.rachein.mmzf2.entity.DB.Article;
 import com.rachein.mmzf2.entity.DB.Draft;
 import com.rachein.mmzf2.entity.DB.DraftArticleRelation;
+import com.rachein.mmzf2.entity.DB.FileDB;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleResultVo;
@@ -26,13 +28,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author 物联网工程系 ITAEM 唐奕泽
+ * @author 物联网工程系 ITAEM 唐奕泽 | 计算机科学系 ITAEM 吴远健
  * @Description
  *
  *
@@ -52,13 +55,20 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     @Autowired
     private IDraftArticleService draftArticleService;
 
+    @Autowired
+    private IFileService fileService;
 
 
     @Override
     public FileVo coverUpload(MultipartFile file) {
         FileUtils.judge(file, 5000l, "img");
-        FileVo save = FileUtils.save(file, null, null);
-        return save;
+        FileDB save = FileUtils.save(file, null, null);
+        fileService.save(save);
+        FileVo vo = new FileVo();
+        BeanUtils.copyProperties(save, vo);
+//        vo.setId(save.getId());
+//        vo.setLocalUrl(save.getLocalUrl());
+        return vo;
 //        String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token="+ AccessTokenUtil.getToken() +"&type=thumb";
 //        String media_id;
 //        //校验数据
@@ -79,8 +89,11 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     @Override
     public FileVo materialUpload(MultipartFile file) {
         FileUtils.judge(file, 5000l, "img");
-        FileVo save = FileUtils.save(file, null, null);
-        return save;
+        FileDB save = FileUtils.save(file, null, null);
+        fileService.save(save);
+        FileVo vo = new FileVo();
+        BeanUtils.copyProperties(save, vo);
+        return vo;
 
 
 

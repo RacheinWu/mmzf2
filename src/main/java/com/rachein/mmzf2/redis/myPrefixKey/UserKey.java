@@ -1,7 +1,7 @@
 package com.rachein.mmzf2.redis.myPrefixKey;
 
 
-import com.rachein.mmzf.redis.BasePrefix;
+import com.rachein.mmzf2.redis.BasePrefix;
 
 public class UserKey extends BasePrefix {
 
