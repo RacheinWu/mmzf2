@@ -22,7 +22,7 @@ path:
     from: tuchuang
     local: C:\Users\Rache\Documents\file\
   url:
-    local: http://192.168.31.151/
+    local: http://192.168.31.152/
   reflect:
     prefix: i/
 
