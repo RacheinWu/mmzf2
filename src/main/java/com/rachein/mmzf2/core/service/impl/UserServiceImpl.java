@@ -1,8 +1,5 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rachein.mmzf2.core.mapper.UserMapper;
 import com.rachein.mmzf2.core.service.IUserService;
@@ -11,7 +8,6 @@ import com.rachein.mmzf2.entity.RO.UserUpdateRo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
 import java.util.Objects;
 
 /**
@@ -28,5 +24,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
             BeanUtils.copyProperties(info,user);
         }
         updateById(user);
+    }
+
+    @Override
+    public Object getByOpenId(String openId) {
+        //先根据openId 在user表中查询，select-> category_id
+        //switch 语句，根据category_id 选取数据库进行查询info
+        //拼接sql
+        //根据openId在这表中获取信息
+        return null;
     }
 }

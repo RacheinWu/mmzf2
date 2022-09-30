@@ -1,38 +1,74 @@
 package com.rachein.mmzf2.entity.DB;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * @Author 华南理工大学 吴远健
- * @Date 2022/8/9
- * @Description 草稿箱
+ * <p>
+ * 文章
+ * </p>
+ *
+ * @author 吴远健
+ * @since 2022-09-30
  */
 @Data
-public class Article {
-    @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
-    private String media_id;
-    @ApiModelProperty("要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0")
-    private Integer index;
-    private String title;
-    private String author;
-    @ApiModelProperty("图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空。如果本字段为没有填写，则默认抓取正文前54个字。")
-    private String digest;
-    @ApiModelProperty("图文消息的具体内容，支持 HTML 标签，必须少于2万字符，小于1M，且此处会去除 JS ,涉及图片 url 必须来源 \"上传图文消息内的图片获取URL\"接口获取。外部图片 url 将被过滤。")
+@TableName("t_article")
+@ApiModel(value = "Article对象", description = "文章")
+public class Article implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
+    private LocalDateTime gmtCreate;
+
+    @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime gmtModified;
+
+    @ApiModelProperty("状态: 0/1 -> 禁用/正常")
+    @TableField("status")
+    private Integer status;
+
+    @ApiModelProperty("内容（富文本）")
+    @TableField("content")
     private String content;
-    @ApiModelProperty("图文消息的原文地址，即点击“阅读原文”后的URL")
-    private String content_source_url;
-    @ApiModelProperty("图文消息的封面图片素材id（必须是永久MediaID）")
-    private String thumb_media_id;
-    @ApiModelProperty("Uint32 是否打开评论，0不打开(默认)，1打开")
-    private Integer need_open_comment;
+
+    @ApiModelProperty("作者")
+    @TableField("author")
+    private String author;
+
+    @ApiModelProperty("封面地址url")
+    @TableField("cover_path")
+    private String coverPath;
+
+    @ApiModelProperty("阅读全文的url")
+    @TableField("content_source_url")
+    private String contentSourceUrl;
+
+    @ApiModelProperty("图文消息的封面图片素材id（一定是永久MediaID） ")
+    @TableField("thumb_media_id")
+    private String thumbMediaId;
+
+    @ApiModelProperty("Uint32 是否打开评论，0不打开(默认)，1打开 ")
+    @TableField("need_open_comment")
+    private Integer needOpenComment;
+
     @ApiModelProperty("Uint32 是否粉丝才可评论，0所有人可评论(默认)，1粉丝才可评论")
-    private Integer only_fans_can_comment;
+    @TableField("only_fans_can_comment")
+    private Integer onlyFansCanComment;
+
     @ApiModelProperty("是否显示封面，1为显示，0为不显示")
-    private Integer show_cover_pic;
-    @ApiModelProperty("封面url【本地服务器】")
-    private String coverUrl;
+    @TableField("show_cover_pic")
+    private Integer showCoverPic;
+
+
 }

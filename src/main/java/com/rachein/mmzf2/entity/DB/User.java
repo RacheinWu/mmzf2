@@ -1,35 +1,66 @@
 package com.rachein.mmzf2.entity.DB;
 
-import lombok.Data;
+import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Author 华南理工大学 吴远健
- * @Date 2022/9/20
- * @Description
+ * <p>
+ * 用户
+ * </p>
+ *
+ * @author 吴远健
+ * @since 2022-09-30
  */
-@Data
-public class User {
-    private String id;
-    private String nickname;
+@Getter
+@Setter
+@TableName("t_user")
+@ApiModel(value = "User对象", description = "用户")
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
+
+    @ApiModelProperty("微信联动")
+    @TableField("openid")
     private String openid;
-    private String avatar;
-    private String school;
-    private String status;
-    private String  phone;
-    private String mingzu;
+
+    @ApiModelProperty("用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。")
+    @TableField("subscribe")
+    private Integer subscribe;
+
+    @ApiModelProperty("0:默认guest")
+    @TableField("role_id")
+    private Integer roleId;
+
+    @ApiModelProperty("性别")
+    @TableField("gender")
     private String gender;
-    private LocalDateTime birthday;
-    private String shenfenmianmao;
-    private LocalDateTime graduateDate;
-    private String graduateSchool;
-    private String firstSchool;
-    private String zhunayeDalei;
-    private String majority;
-    private String remark;
-    private int isAdmin = 0;
+
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
+
+    @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
+
+    @ApiModelProperty("真实名称")
+    @TableField("nickname")
+    private String nickname;
+
+    @ApiModelProperty("订阅时间")
+    @TableField("subscribe_time")
+    private String subscribeTime;
+
+    @ApiModelProperty("用户类型id，是学生还是xx")
+    @TableField("category_id")
+    private Integer categoryId;
+
 
 }

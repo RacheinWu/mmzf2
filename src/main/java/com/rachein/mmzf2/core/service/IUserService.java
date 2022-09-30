@@ -12,4 +12,5 @@ import com.rachein.mmzf2.entity.RO.UserUpdateRo;
 public interface IUserService extends IService<User> {
     void updateInfo(String openId, UserUpdateRo info);
 
+    Object getByOpenId(String openId);
 }
