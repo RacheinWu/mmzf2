@@ -13,5 +13,6 @@ public class UserVo {
     private String nickname;
     private String phone;
     private String shenfenmianmao;
+    private String remark;
 
 }

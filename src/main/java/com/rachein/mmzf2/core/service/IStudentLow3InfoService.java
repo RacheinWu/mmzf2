@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service;
 
-import com.rachein.mmzf2.entity.new.DB.StudentLow3Info;
+import com.rachein.mmzf2.entity.DB.StudentLow3Info;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

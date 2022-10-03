@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.new.DB.Log;
+import com.rachein.mmzf2.entity.DB.Log;
 import com.rachein.mmzf2.core.mapper.LogMapper;
 import com.rachein.mmzf2.core.service.ILogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

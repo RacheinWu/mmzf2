@@ -27,6 +27,9 @@ public class CodeMsg {
     //网络: 5002xx
     public static CodeMsg RESPONSE_ERROR = new CodeMsg(500201, "服务器请求异常，请稍后重试！");
 
+    //用户：5003xx
+    public static CodeMsg USER_NOT_FOUND = new CodeMsg(500301, "找不到用户！");
+
 
     public CodeMsg() {
     }

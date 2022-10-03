@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.new.DB.StudentHighInfo;
+import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import com.rachein.mmzf2.core.mapper.StudentHighInfoMapper;
 import com.rachein.mmzf2.core.service.IStudentHighInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

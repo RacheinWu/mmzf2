@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service;
 
-import com.rachein.mmzf2.entity.new.DB.UserActivity;
+import com.rachein.mmzf2.entity.DB.UserActivity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

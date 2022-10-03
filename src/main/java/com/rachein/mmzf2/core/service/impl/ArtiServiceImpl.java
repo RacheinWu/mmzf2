@@ -170,9 +170,10 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     @Override
     public Long createDraft() {
         //数据库创建Draft
-        Draft draft = new Draft();
-        draftService.save(draft);
-        return draft.getId();
+//        Draft draft = new Draft();
+//        draftService.save(draft);
+//        return draft.getId();
+        return null;
     }
 
     @Override
@@ -201,7 +202,7 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         relations.forEach(t -> {
             Article article = lambdaQuery()
                     .eq(Article::getId, t.getArticleId())
-                    .select(Article::getTitle, Article::getCoverUrl, Article::getId)
+                    .select(Article::getTitle, Article::getCoverPath, Article::getId)
                     .one();
             ArticleVo articleVo = new ArticleVo();
             BeanUtils.copyProperties(article, articleVo);

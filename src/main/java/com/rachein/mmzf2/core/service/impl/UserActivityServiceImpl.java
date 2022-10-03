@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.new.DB.UserActivity;
+import com.rachein.mmzf2.entity.DB.UserActivity;
 import com.rachein.mmzf2.core.mapper.UserActivityMapper;
 import com.rachein.mmzf2.core.service.IUserActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

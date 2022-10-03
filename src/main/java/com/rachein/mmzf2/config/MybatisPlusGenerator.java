@@ -36,7 +36,7 @@ public class MybatisPlusGenerator {
                 })
                 .strategyConfig(builder -> {
 
-//                    builder.addInclude("salary_release_mid_archives"); // 设置需要生成的表名
+                    builder.addInclude("user_role"); // 设置需要生成的表名
                     builder.addTablePrefix("t_");//跳过前缀
                 })
                 .strategyConfig(builder -> {
@@ -55,7 +55,7 @@ public class MybatisPlusGenerator {
                             .controller("core.controller")
                             .mapper("core.mapper")
                             .serviceImpl("core.service.impl")
-                            .entity("entity.new.DB");
+                            .entity("entity.DB");
                 })
                 .strategyConfig(builder -> {
                     builder.controllerBuilder()

@@ -1,9 +1,9 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.new.DB.Activity;
 import com.rachein.mmzf2.core.mapper.ActivityMapper;
 import com.rachein.mmzf2.core.service.IActivityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rachein.mmzf2.entity.DB.Activity;
 import org.springframework.stereotype.Service;
 
 /**

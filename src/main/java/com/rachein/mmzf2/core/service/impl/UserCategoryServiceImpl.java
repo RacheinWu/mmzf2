@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.new.DB.UserCategory;
+import com.rachein.mmzf2.entity.DB.UserCategory;
 import com.rachein.mmzf2.core.mapper.UserCategoryMapper;
 import com.rachein.mmzf2.core.service.IUserCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.mapper;
 
-import com.rachein.mmzf2.entity.new.DB.Log;
+import com.rachein.mmzf2.entity.DB.Log;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

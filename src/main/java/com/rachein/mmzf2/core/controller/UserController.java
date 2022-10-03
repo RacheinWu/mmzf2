@@ -24,8 +24,9 @@ public class UserController {
     @ApiOperation("获取关注的用户列表")
     @GetMapping("/all")
     public Result<List<User>> list() {
-        List<User> list = userService.lambdaQuery().eq(User::getIsAdmin, false).list();
-        return Result.success(list);
+//        List<User> list = userService.lambdaQuery().eq(User::getIsAdmin, false).list();
+//        return Result.success(list);
+        return null;
     }
 
     @ApiOperation("获取用户info")

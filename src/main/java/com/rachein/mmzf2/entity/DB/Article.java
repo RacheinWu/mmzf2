@@ -3,7 +3,6 @@ package com.rachein.mmzf2.entity.DB;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +17,8 @@ import java.time.LocalDateTime;
  * @author 吴远健
  * @since 2022-09-30
  */
-@Data
+@Getter
+@Setter
 @TableName("t_article")
 @ApiModel(value = "Article对象", description = "文章")
 public class Article implements Serializable {
@@ -26,7 +26,7 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
@@ -70,5 +70,7 @@ public class Article implements Serializable {
     @TableField("show_cover_pic")
     private Integer showCoverPic;
 
+    @ApiModelProperty("标题")
+    private String title;
 
 }

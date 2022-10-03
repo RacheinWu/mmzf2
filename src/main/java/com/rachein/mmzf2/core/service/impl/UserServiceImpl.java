@@ -5,9 +5,12 @@ import com.rachein.mmzf2.core.mapper.UserMapper;
 import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.entity.RO.UserUpdateRo;
+import com.rachein.mmzf2.entity.VO.UserVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,5 +36,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         //拼接sql
         //根据openId在这表中获取信息
         return null;
+    }
+
+    @Override
+    public List<UserVo> listUserByIds(List<String> ids) {
+        List<UserVo> userVos = new ArrayList<>();
+        for (String id : ids) {
+            User db = lambdaQuery().eq(User::getOpenid, id)
+                    .one();
+            UserVo vo = new UserVo();
+            BeanUtils.copyProperties(db, vo);
+            userVos.add(vo);
+        }
+        return userVos;
     }
 }

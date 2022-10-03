@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.mapper;
 
-import com.rachein.mmzf2.entity.new.DB.UserActivity;
+import com.rachein.mmzf2.entity.DB.UserActivity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.mapper;
 
-import com.rachein.mmzf2.entity.new.DB.StudentHighInfo;
+import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

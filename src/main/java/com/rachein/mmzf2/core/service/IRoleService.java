@@ -1,7 +1,12 @@
 package com.rachein.mmzf2.core.service;
 
-import com.rachein.mmzf2.entity.new.DB.Role;
+import com.rachein.mmzf2.entity.DB.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rachein.mmzf2.entity.DB.UserRole;
+import com.rachein.mmzf2.entity.RO.AdminApplyRo;
+import com.rachein.mmzf2.entity.VO.UserVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRoleService extends IService<Role> {
 
+    List<UserVo> listAdmin(Integer level);
+
+    void checkApplyIIByMid(Long userRoleId, Boolean result);
+
+    List<UserRole> listAdminApply();
+
+    void grantII(AdminApplyRo body);
 }
