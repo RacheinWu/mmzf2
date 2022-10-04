@@ -1,6 +1,9 @@
 package com.rachein.mmzf2.core.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rachein.mmzf2.entity.DB.StudentHighInfo;
+import com.rachein.mmzf2.entity.DB.StudentLow12Info;
+import com.rachein.mmzf2.entity.DB.StudentLow3Info;
 import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.entity.RO.UserUpdateRo;
 import com.rachein.mmzf2.entity.VO.UserVo;
@@ -18,4 +21,10 @@ public interface IUserService extends IService<User> {
     Object getByOpenId(String openId);
 
     List<UserVo> listUserByIds(List<String> ids);
+
+    void updateInfoToHighStudent(String openId, StudentHighInfo info);
+
+    void updateInfoToLowStudent12(String openId, StudentLow12Info info);
+
+    void updateInfoToLowStudent3(String openId, StudentLow3Info info);
 }

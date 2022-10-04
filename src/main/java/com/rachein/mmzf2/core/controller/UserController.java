@@ -1,8 +1,12 @@
 package com.rachein.mmzf2.core.controller;
 
 import com.rachein.mmzf2.core.service.IUserService;
+import com.rachein.mmzf2.entity.DB.StudentHighInfo;
+import com.rachein.mmzf2.entity.DB.StudentLow12Info;
+import com.rachein.mmzf2.entity.DB.StudentLow3Info;
 import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.entity.RO.UserUpdateRo;
+import com.rachein.mmzf2.entity.enums.UserCategoryEnum;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,21 +40,37 @@ public class UserController {
         return Result.success(info);
     }
 
-    /**
-     *
-     * @param openId 微信号
-     * @param typeIndex 是什么人群，大学生还是社会人士，还是高三还是高一二
-     * @param info 请求体
-     */
-    @ApiOperation("填充信息")
-    @PostMapping("/info/fill/{openId}/{type_index}")
-    public void fillInfo(@PathVariable String openId, @PathVariable("type_index") Integer typeIndex, @RequestBody UserUpdateRo info) {
-        //switch语句进行选择 service 从而保存信息
-        userService.updateInfo(openId, info);
+//    /**
+//     *
+//     * @param openId 微信号
+//     * @param typeIndex 是什么人群，大学生还是社会人士，还是高三还是高一二
+//     * @param info 请求体
+//     */
+//    @ApiOperation("填充信息")
+//    @PostMapping("/info/fill/{openId}/{type_index}")
+//    public void fillInfo(@PathVariable String openId, @PathVariable("type_index") Integer typeIndex, @RequestBody UserUpdateRo info) {
+//        //switch语句进行选择 service 从而保存信息
+//
+//        userService.updateInfo(openId, info, );
+//    }
+
+    @ApiOperation("填充信息【大学生】")
+    @PostMapping("/info/fill/{openId}/high_student")
+    public void fillInfo(@PathVariable String openId, @RequestBody StudentHighInfo info) {
+        userService.updateInfoToHighStudent(openId, info);
     }
 
+    @ApiOperation("填充信息【高一二学生】")
+    @PostMapping("/info/fill/{openId}/low_student_12")
+    public void fillInfo(@PathVariable String openId, @RequestBody StudentLow12Info info) {
+        userService.updateInfoToLowStudent12(openId, info);
+    }
 
-
+    @ApiOperation("填充信息【高三学生】")
+    @PostMapping("/info/fill/{openId}/low_student_3")
+    public void fillInfo(@PathVariable String openId, @RequestBody StudentLow3Info info) {
+        userService.updateInfoToLowStudent3(openId, info);
+    }
 
 
 }
