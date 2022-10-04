@@ -16,4 +16,6 @@ public class AdminApplyVo {
     private String phone;
     private String remark;
     private String gmtModified;
+    private String suozaidanwei;//所在单位
+    private String danweizhiwu;//单位职务
 }

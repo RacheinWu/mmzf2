@@ -37,7 +37,7 @@ public class RoleController {
 
     @ApiOperation("审核通过 二级管理员通过")
     @GetMapping("/admin/check/{user_role_id}/{result}")
-    public void check(@PathVariable("user_role_id") Long userRoleId, @PathVariable Boolean result) {
+    public void check(@PathVariable("user_role_id") Long userRoleId, @PathVariable Integer result) {
         roleService.checkApplyIIByMid(userRoleId, result);
     }
 
@@ -45,6 +45,12 @@ public class RoleController {
     @GetMapping("/admin/check")
     public void listCheck() {
         roleService.listAdminApply();
+    }
+
+    @ApiOperation("添加管理申请表")
+    @PostMapping("/admin/apply/add")
+    public void addApply(@RequestBody AdminApplyRo ro) {
+        roleService.addApply(ro);
     }
 
 }

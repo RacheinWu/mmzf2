@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.rachein.mmzf2.entity.DB.UserRole;
+import com.rachein.mmzf2.entity.DB.AdminApply;
 import com.rachein.mmzf2.core.mapper.UserRoleMapper;
 import com.rachein.mmzf2.core.service.IUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-10-03
  */
 @Service
-public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, AdminApply> implements IUserRoleService {
 
 }

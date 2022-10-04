@@ -22,20 +22,19 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("user_role")
-@ApiModel(value = "UserRole对象", description = "")
-public class UserRole implements Serializable {
+@TableName("user_admin_apply")
+@ApiModel(value = "管理员申请表", description = "")
+public class AdminApply implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @TableField("openid")
     private String openid;
 
-    @TableField("role_id")
-    private Integer roleId;
+    @TableField("admin_level")
+    private Integer adminLevel;
 
     @ApiModelProperty("身份审核状态 默认1 通过")
     @TableField("status")
@@ -48,6 +47,13 @@ public class UserRole implements Serializable {
     private LocalDateTime gmtModified;
 
     private String remark;
+
+    private String suozaidanwei;//所在单位
+
+    private String danweizhiwu;//单位职务
+
+    @TableField("zhengmingcailiao_url")
+    private String zhengmingcailiaoUrl;
 
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(tags = "图文模块")
 @RestController
-public class ArticleController {
+class ArticleController {
 
     @Autowired
     private IArticleService articleService;

@@ -2,7 +2,7 @@ package com.rachein.mmzf2.core.service;
 
 import com.rachein.mmzf2.entity.DB.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rachein.mmzf2.entity.DB.UserRole;
+import com.rachein.mmzf2.entity.DB.AdminApply;
 import com.rachein.mmzf2.entity.RO.AdminApplyRo;
 import com.rachein.mmzf2.entity.VO.UserVo;
 
@@ -20,9 +20,11 @@ public interface IRoleService extends IService<Role> {
 
     List<UserVo> listAdmin(Integer level);
 
-    void checkApplyIIByMid(Long userRoleId, Boolean result);
+    void checkApplyIIByMid(Long userRoleId, Integer result);
 
-    List<UserRole> listAdminApply();
+    List<AdminApply> listAdminApply();
 
     void grantII(AdminApplyRo body);
+
+    void addApply(AdminApplyRo ro);
 }
