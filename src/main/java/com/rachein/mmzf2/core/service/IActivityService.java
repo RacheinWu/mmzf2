@@ -2,6 +2,7 @@ package com.rachein.mmzf2.core.service;
 
 import com.rachein.mmzf2.entity.DB.Activity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.rachein.mmzf2.entity.RO.ActivityAddRo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IActivityService extends IService<Activity> {
 
+    Long save(ActivityAddRo ro);
 }

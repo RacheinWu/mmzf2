@@ -1,37 +1,28 @@
 package com.rachein.mmzf2.core.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rachein.mmzf2.core.mapper.FileMapper;
-import com.rachein.mmzf2.core.service.IArticleService;
-import com.rachein.mmzf2.core.service.IDraftArticleService;
-import com.rachein.mmzf2.core.service.IDraftService;
-import com.rachein.mmzf2.core.service.IFileService;
-import com.rachein.mmzf2.entity.DB.Article;
-import com.rachein.mmzf2.entity.DB.Draft;
-import com.rachein.mmzf2.entity.DB.DraftArticleRelation;
-import com.rachein.mmzf2.entity.DB.FileDB;
+import com.rachein.mmzf2.core.service.*;
+import com.rachein.mmzf2.entity.DB.*;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleResultVo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
-import com.rachein.mmzf2.utils.AccessTokenUtil;
+import com.rachein.mmzf2.exception.GlobalException;
+import com.rachein.mmzf2.result.CodeMsg;
 import com.rachein.mmzf2.utils.FileUtils;
-import com.rachein.mmzf2.utils.HttpRequestUtils;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -57,6 +48,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
     @Autowired
     private IFileService fileService;
+
+    @Autowired
+    private IActivityService activityService;
 
 
     @Override
@@ -177,9 +171,15 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     }
 
     @Override
-    public Long createArticle(Long draftId) {
+    public Long createArticle(Long draftId, Long activityId) {
+        //先从数据库中，找到对应的活动
+        Activity activity = activityService.lambdaQuery()
+                .eq(Activity::getId, activityId)
+                .one();
+        if (Objects.isNull(activity)) throw new GlobalException(CodeMsg.BIND_ERROR);
         //数据库创建article:
         Article article = new Article();
+        activity.setActivityId(activityId);
         save(article);
         Long articleId = article.getId();
         //绑定draft，确定次序

@@ -25,7 +25,7 @@ public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty("活动名称")
@@ -58,6 +58,8 @@ public class Activity implements Serializable {
     @ApiModelProperty("默认1：正常")
     @TableField("status")
     private Integer status;
+
+    private Long activityId;
 
 
 }

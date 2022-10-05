@@ -38,7 +38,7 @@ public interface IArticleService extends IService<Article> {
 
     Long createDraft();
 
-    Long createArticle(Long draftId);
+    Long createArticle(Long draftId, Long activityId);
 
     List<ArticleVo> listArticleByDraftId(Long draftId);
 

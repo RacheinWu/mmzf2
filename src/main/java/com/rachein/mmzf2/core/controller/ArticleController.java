@@ -52,9 +52,9 @@ class ArticleController {
 //    }
 
     @ApiOperation("创建文章")
-    @GetMapping("article/create/{draft_id}")
-    public Result<Long> create(@PathVariable("draft_id") Long draftId) {
-        Long articleId = articleService.createArticle(draftId);
+    @GetMapping("article/create/{draft_id}/{activity_id}")
+    public Result<Long> create(@PathVariable("draft_id") Long draftId, @PathVariable("activity_id") Long activityId) {
+        Long articleId = articleService.createArticle(draftId, activityId);
         return Result.success(articleId);
     }
 
