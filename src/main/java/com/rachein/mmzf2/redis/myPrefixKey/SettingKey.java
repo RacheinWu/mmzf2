@@ -11,12 +11,15 @@ public class SettingKey extends BasePrefix {
 
     private static final int TOKEN_EXPIRE = -1;
     public static final String SUBSCRIBE_REPLY_KEY = "SUBSCRIBE_REPLY_KEY";
+
     /**
      * 防止被外面实例化
      * @param expireSeconds
      * @param prefix
      */
-    private SettingKey(int expireSeconds, String prefix) {super(expireSeconds, prefix);}
+    private SettingKey(int expireSeconds, String prefix) {
+        super(expireSeconds, prefix);
+    }
 
     /**
      * 需要缓存的字段：

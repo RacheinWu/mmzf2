@@ -12,7 +12,9 @@ public class UserKey extends BasePrefix {
      * @param expireSeconds
      * @param prefix
      */
-    private UserKey(int expireSeconds, String prefix) {super(expireSeconds,prefix);}
+    private UserKey(int expireSeconds, String prefix) {
+        super(expireSeconds,prefix);
+    }
 
     /**
      * 需要缓存的字段：

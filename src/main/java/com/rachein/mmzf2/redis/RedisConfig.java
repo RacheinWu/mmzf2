@@ -71,5 +71,4 @@ public class RedisConfig {
             this.poolMaxWait = poolMaxWait;
         }
 
-
 }

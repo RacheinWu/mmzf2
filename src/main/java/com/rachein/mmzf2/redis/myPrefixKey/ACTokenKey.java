@@ -12,7 +12,9 @@ public class ACTokenKey extends BasePrefix {
      * @param expireSeconds
      * @param prefix
      */
-    private ACTokenKey(int expireSeconds, String prefix) {super(expireSeconds, prefix);}
+    private ACTokenKey(int expireSeconds, String prefix) {
+        super(expireSeconds, prefix);
+    }
 
     /**
      * 需要缓存的字段：

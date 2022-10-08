@@ -28,6 +28,10 @@ public class StudentHighInfo implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty("微信联动")
+    @TableField("openid")
+    private String openid;
+
     @ApiModelProperty("个人照片/头像")
     @TableField("avatar")
     private String avatar;

@@ -17,5 +17,4 @@ public interface KeyPrefix {
      * @return
      */
     public String getPrefix();
-
 }

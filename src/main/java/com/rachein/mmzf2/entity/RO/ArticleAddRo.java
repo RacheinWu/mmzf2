@@ -12,5 +12,6 @@ import java.util.List;
  */
 @Data
 public class ArticleAddRo {
-    List<ArticleRo> articles;
+    private Long draftId;
+    private Long activityId;
 }

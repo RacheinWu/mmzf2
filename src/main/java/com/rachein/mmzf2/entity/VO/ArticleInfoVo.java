@@ -13,4 +13,5 @@ public class ArticleInfoVo {
     private String content;
     private String author;
     private String title;
+    private String coverPath;
 }

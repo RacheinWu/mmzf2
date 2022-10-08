@@ -46,6 +46,15 @@ public class Article implements Serializable {
     @TableField("author")
     private String author;
 
+    @ApiModelProperty("次序")
+    private Integer index;
+
+    @ApiModelProperty("推文id号")
+    private Long draftId;
+
+    @ApiModelProperty("活动id号")
+    private Long activityId;
+
     @ApiModelProperty("封面地址url")
     @TableField("cover_path")
     private String coverPath;

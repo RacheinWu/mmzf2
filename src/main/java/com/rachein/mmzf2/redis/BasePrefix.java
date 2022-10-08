@@ -6,7 +6,9 @@
 
         private String prefix;
 
-        public BasePrefix(String prefix) {this(0,prefix);}//默认为0代表永不过期
+        public BasePrefix(String prefix) {
+            this(0,prefix);
+        }//默认为0代表永不过期
 
         public BasePrefix(int expireSeconds, String prefix){
             this.expireSeconds = expireSeconds;

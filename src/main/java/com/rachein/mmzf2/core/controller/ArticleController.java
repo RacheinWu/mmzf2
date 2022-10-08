@@ -52,11 +52,12 @@ class ArticleController {
 //    }
 
     @ApiOperation("创建文章")
-    @GetMapping("article/create/{draft_id}/{activity_id}")
-    public Result<Long> create(@PathVariable("draft_id") Long draftId, @PathVariable("activity_id") Long activityId) {
-        Long articleId = articleService.createArticle(draftId, activityId);
+    @PostMapping("article/create")
+    public Result<Long> create(@RequestBody ArticleAddRo ro) {
+        Long articleId = articleService.createArticle(ro);
         return Result.success(articleId);
     }
+
 
 //    @ApiOperation(value = "发布推文", tags = "本操作，将使得推文公开，所有人群包括没有订阅的人群也将可以访问")
 //    @GetMapping("article/release/{media_id}")
@@ -65,39 +66,43 @@ class ArticleController {
 //        return Result.success("发布成功！");
 //    }
 
-    @ApiOperation("删除草稿中的推文")
-    @GetMapping("draft/remove/article/{article_id}")
-    public Result<String> removeArticle(@PathVariable("article_id") String articleId) {
-        articleService.removeByArticleId(articleId);
-        return Result.success("草稿已移除");
-    }
 
-    @ApiOperation("删除整个草稿")
+    /**
+     * 待开发
+     * @param draftId
+     * @return
+     */
+//    @ApiOperation("撤回公布的推文")
+//    @GetMapping("article/remove/{local_id}")
+//    public Result<Object> removeArticleRelease(@PathVariable("local_id") String localId) {
+//        return Result.success("撤销成功！");
+//    }
+
+    @ApiOperation("删除整个推文【根据推文id】")
     @GetMapping("draft/remove/{draft_id}")
     public Result<Object> removeDraft(@PathVariable("draft_id") Long draftId) {
         articleService.removeDraftByDraftId(draftId);
         return Result.success("删除成功");
     }
 
-
-    @ApiOperation("撤回公布的推文")
-    @GetMapping("article/remove/{local_id}")
-    public Result<Object> removeArticleRelease(@PathVariable("local_id") String localId) {
-        articleService.removeArticleById(localId);
-        return Result.success("撤销成功！");
+    @ApiOperation("删除草稿中的文章【根据文章的id】")
+    @GetMapping("article/remove/{article_id}")
+    public Result<Object> removeArticle(@PathVariable("article_id") Long articleId) {
+        articleService.removeArticleById(articleId);
+        return Result.success("删除成功！");
     }
 
-    @ApiOperation("更新草稿箱中的推文")
-    @PostMapping("draft/article/update/{article_id}")
-    public Result<String> update(@PathVariable("article_id") String articleId, @RequestBody ArticleAddRo updateRo) {
-        articleService.updateByLocalId(articleId, updateRo);
-        return Result.success("更新草稿成功！");
-    }
+//    @ApiOperation("更新草稿箱中的推文")
+//    @PostMapping("draft/article/update/{article_id}")
+//    public Result<String> update(@PathVariable("article_id") String articleId, @RequestBody ArticleAddRo updateRo) {
+//        articleService.updateByLocalId(articleId, updateRo);
+//        return Result.success("更新草稿成功！");
+//    }
 
-    @ApiOperation("预览")
+    @ApiOperation("获取文章详情")
     @GetMapping("article/{article_id}")
-    public Result<ArticleInfoVo> review(@PathVariable("article_id") String articleId) {
-        ArticleInfoVo articleInfoVo = articleService.view(articleId);
+    public Result<ArticleInfoVo> getArticleInfo(@PathVariable("article_id") String articleId) {
+        ArticleInfoVo articleInfoVo = articleService.getArticleInfoById(articleId);
         return Result.success(articleInfoVo);
     }
 
