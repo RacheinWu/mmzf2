@@ -163,7 +163,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
          * //数据库创建Draft
          * //return id
          */
-        return null;
+        Draft draft = new Draft();
+        draftService.save(draft);
+        return draft.getId().longValue();
     }
 
     @Override
@@ -190,7 +192,16 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
          *  select(Article::getTitle, Article::getCoverPath, Article::getId)
          * 直接返回
          */
-        return null;
+
+        List<Article> darList = lambdaQuery().eq(Article::getDraftId, draftId).list();
+        List<ArticleVo> articleVos = new ArrayList<>();
+        darList.forEach(d -> {
+            ArticleVo articleVo = new ArticleVo();
+            BeanUtils.copyProperties(d,articleVo);
+            articleVos.add(articleVo);
+        });
+
+        return articleVos;
     }
 
     @Override
@@ -217,6 +228,13 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
          * 2 从draft 删除id
          * 3 redis 删除对应 （根据list集合删除）
          */
+
+        List<Article> articleList = lambdaQuery().eq(Article::getDraftId, draftId).list();
+        draftService.lambdaUpdate().eq(Draft::getId,draftId).remove();
+        articleList.forEach(l ->{
+            redisService.delete(ArticleKey.getById,l.getId().toString());
+            lambdaUpdate().eq(Article::getId,l.getId()).remove();
+        });
     }
 
 

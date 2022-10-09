@@ -15,4 +15,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DraftServiceImpl extends ServiceImpl<BaseMapper<Draft>, Draft> implements IDraftService {
+    @Override
+    public boolean save(Draft draft) {
+        try {
+            save(draft);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

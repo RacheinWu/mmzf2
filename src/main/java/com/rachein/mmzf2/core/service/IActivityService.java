@@ -15,4 +15,7 @@ import com.rachein.mmzf2.entity.RO.ActivityAddRo;
 public interface IActivityService extends IService<Activity> {
 
     Long save(ActivityAddRo ro);
+
+    void listUser(Long activityId);
+
 }

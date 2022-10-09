@@ -59,7 +59,6 @@ public class InitialAutoRoboter {
         FileUtils.local_path = local_path;
         FileUtils.local_url = local_url;
         FileUtils.reflect_path_prefix = reflect_prefix;
-
         UserQueue.getUserInfoUrl = userInfoUrl;
         log.info("<<<<<<<<<<<<<<<<<< 已从配置文件中读取配置!");
         //
@@ -67,4 +66,7 @@ public class InitialAutoRoboter {
         log.info("<<<<<<<<<<<<<<<<<< 用户监听队列已开启....");
 
     }
+
+
+
 }

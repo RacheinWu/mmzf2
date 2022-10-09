@@ -1,15 +1,15 @@
 package com.rachein.mmzf2.core.controller;
 
 import com.rachein.mmzf2.core.service.IActivityService;
+import com.rachein.mmzf2.entity.DB.Activity;
 import com.rachein.mmzf2.entity.RO.ActivityAddRo;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -29,6 +29,18 @@ public class ActivityController {
     public Result<Long> add(@RequestBody ActivityAddRo ro) {
         Long id = activityService.save(ro);
         return Result.success(id);
+    }
+
+    @ApiOperation("活动列表")
+    @GetMapping("/all")
+    public Result<List<Activity>> listActivity() {
+        return Result.success(activityService.list());
+    }
+
+    @ApiOperation("列出某活动报名人的列表")
+    @GetMapping("/{activity_id}/user")
+    public void listUser(@PathVariable("activity_id") Long activityId) {
+        activityService.listUser(activityId);
     }
 
 
