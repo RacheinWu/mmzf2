@@ -1,10 +1,15 @@
 package com.rachein.mmzf2.redis;
 
 import com.alibaba.fastjson.JSON;
+import com.rachein.mmzf2.redis.myPrefixKey.ACTokenKey;
+import com.rachein.mmzf2.redis.myPrefixKey.ArticleKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class RedisService {
@@ -117,6 +122,23 @@ public class RedisService {
     }
 
 
+    /**
+     * 根据前缀 获取keys
+     */
+    public Set<String> getKeys(String prefix) {
+        Jedis jedis = null;
+        try {
+            Set<String> keys = jedis.keys(prefix);
+            Set<String> realKeys = new HashSet<>();
+            for (String key : keys) {
+                realKeys.add(key.replace(ArticleKey.PREFIX, ""));
+            }
+            return realKeys;
+        } finally {
+            returnToPool(jedis);
+        }
+
+    }
 
 
 

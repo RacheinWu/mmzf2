@@ -9,7 +9,8 @@ import com.rachein.mmzf2.redis.BasePrefix;
  */
 public class ArticleKey extends BasePrefix {
 
-    public static final int TOKEN_EXPIRE = 3600*24 *2;//默认两天
+    public static final int TOKEN_EXPIRE = 3600;//默认一个小时
+    public static final String PREFIX = "article-id";
 
     /**
      * 防止被外面实例化
@@ -23,7 +24,6 @@ public class ArticleKey extends BasePrefix {
     /**
      * 需要缓存的字段：
      */
-    public static ArticleKey token = new ArticleKey(TOKEN_EXPIRE,"token");
+    public static ArticleKey getById = new ArticleKey(TOKEN_EXPIRE, PREFIX);
 
-    public static ArticleKey getById = new ArticleKey(TOKEN_EXPIRE,"article-id");
 }
