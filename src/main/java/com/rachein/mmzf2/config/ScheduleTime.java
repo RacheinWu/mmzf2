@@ -33,7 +33,7 @@ public class ScheduleTime {
     @Scheduled(cron = "0/5 * * * * ? ")
     public void redisMysqlSync() {
         //推文的文章同步:
-        articleSync();
+//        articleSync();
     }
 
     /**

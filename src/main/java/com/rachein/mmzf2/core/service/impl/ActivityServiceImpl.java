@@ -27,4 +27,9 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         save(activity);
         return activity.getId();
     }
+
+    @Override
+    public void listUser(Long activityId) {
+
+    }
 }
