@@ -10,6 +10,7 @@ import redis.clients.jedis.JedisPool;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RedisService {
@@ -121,25 +122,19 @@ public class RedisService {
         }
     }
 
-
     /**
-     * 根据前缀 获取keys
+     * 根据前缀获取key
      */
-    public Set<String> getKeys(String prefix) {
+    public Set<String> getKeysByPrefix(String prefix) {
         Jedis jedis = null;
         try {
-            Set<String> keys = jedis.keys(prefix);
-            Set<String> realKeys = new HashSet<>();
-            for (String key : keys) {
-                realKeys.add(key.replace(ArticleKey.PREFIX, ""));
-            }
-            return realKeys;
+            jedis = jedisPool.getResource();
+            return jedis.keys(prefix + "*")
+                    .stream().map(key-> key.replace(prefix, "")).collect(Collectors.toSet());
         } finally {
             returnToPool(jedis);
         }
-
     }
-
 
 
     public static <T> String beanToString(T value) {

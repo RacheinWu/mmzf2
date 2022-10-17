@@ -127,8 +127,16 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         save(article);
         Long articleId = article.getId();
         //redis中也保存一份
-        redisService.set(ArticleKey.getById,articleId.toString(),article);
+//        redisService.set(ArticleKey.getById,articleId.toString(),article);
         return articleId;
+    }
+
+    @Override
+    public void updateByIdRedis(String articleId, ArticleAddRo updateRo) {
+        Article article = new Article();
+        BeanUtils.copyProperties(updateRo, article);
+        //更新到redis中
+        redisService.set(ArticleKey.getById, article.getId().toString(), article);
     }
 
 
@@ -200,7 +208,6 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
             BeanUtils.copyProperties(d,articleVo);
             articleVos.add(articleVo);
         });
-
         return articleVos;
     }
 

@@ -25,7 +25,7 @@ public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
@@ -47,7 +47,7 @@ public class Article implements Serializable {
     private String author;
 
     @ApiModelProperty("次序")
-    private Integer index;
+    private Integer idx;
 
     @ApiModelProperty("推文id号")
     private Long draftId;

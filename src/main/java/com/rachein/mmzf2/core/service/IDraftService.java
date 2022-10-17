@@ -10,5 +10,4 @@ import com.rachein.mmzf2.entity.DB.Draft;
  */
 public interface IDraftService extends IService<Draft> {
 
-     boolean save(Draft draft);
 }

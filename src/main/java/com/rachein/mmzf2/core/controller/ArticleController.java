@@ -1,6 +1,8 @@
 package com.rachein.mmzf2.core.controller;
 
 import com.rachein.mmzf2.core.service.IArticleService;
+import com.rachein.mmzf2.core.service.IDraftService;
+import com.rachein.mmzf2.entity.DB.Draft;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
@@ -26,12 +28,23 @@ class ArticleController {
     @Autowired
     private IArticleService articleService;
 
+    @Autowired
+    private IDraftService draftService;
+
     @ApiOperation(value = "上传推文封面", notes = "最近更新：永久图片素材新增后，将带有 URL 返回给开发者，开发者可以在腾讯系域名内使用（腾讯系域名外使用，图片将被屏蔽）。\n" +
             "缩略图（thumb）：64KB，支持 JPG 格式")
     @PostMapping("article/cover/upload")
     public Result<FileVo> uploadCover(MultipartFile file) {
         FileVo vo = articleService.coverUpload(file);
         return Result.success(vo);
+    }
+
+    @ApiOperation("创建推文")
+    @GetMapping("/draft/create")
+    private Result<Long> draftCreate() {
+        Draft draft = new Draft();
+        draftService.save(draft);
+        return Result.success(draft.getId());
     }
 
 
@@ -92,12 +105,12 @@ class ArticleController {
         return Result.success("删除成功！");
     }
 
-//    @ApiOperation("更新草稿箱中的推文")
-//    @PostMapping("draft/article/update/{article_id}")
-//    public Result<String> update(@PathVariable("article_id") String articleId, @RequestBody ArticleAddRo updateRo) {
-//        articleService.updateByLocalId(articleId, updateRo);
-//        return Result.success("更新草稿成功！");
-//    }
+    @ApiOperation("更新草稿箱中的文章")
+    @PostMapping("draft/article/update/{article_id}")
+    public Result<String> update(@PathVariable("article_id") String articleId, @RequestBody ArticleAddRo updateRo) {
+        articleService.updateByIdRedis(articleId, updateRo);
+        return Result.success("更新草稿成功！");
+    }
 
     @ApiOperation("获取文章详情")
     @GetMapping("article/{article_id}")

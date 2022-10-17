@@ -37,4 +37,5 @@ public interface IArticleService extends IService<Article> {
 
     Long createArticle(ArticleAddRo ro);
 
+    void updateByIdRedis(String articleId, ArticleAddRo updateRo);
 }

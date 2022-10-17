@@ -41,7 +41,7 @@ public class ScheduleTime {
      */
     private void articleSync() {
         //从集合中获取任务
-        Set<String> ids = redisService.getKeys(ArticleKey.PREFIX);
+        Set<String> ids = redisService.getKeysByPrefix(ArticleKey.PREFIX);
         List<Article> articleList = new ArrayList<>();
         //从redis中读取
         for (String articleId : ids) {

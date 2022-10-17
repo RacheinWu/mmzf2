@@ -26,3 +26,8 @@ spring:
 setting:
   page:
     count: 6
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

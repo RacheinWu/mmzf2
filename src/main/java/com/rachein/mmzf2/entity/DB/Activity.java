@@ -29,8 +29,8 @@ public class Activity implements Serializable {
     private Long id;
 
     @ApiModelProperty("活动名称")
-    @TableField("name")
-    private String name;
+    @TableField("title")
+    private String title;
 
     @ApiModelProperty("活动开始时间")
     @TableField("time_start")
@@ -58,8 +58,6 @@ public class Activity implements Serializable {
     @ApiModelProperty("默认1：正常")
     @TableField("status")
     private Integer status;
-
-    private Long activityId;
 
 
 }
