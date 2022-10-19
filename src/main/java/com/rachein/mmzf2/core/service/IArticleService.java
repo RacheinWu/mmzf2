@@ -9,6 +9,7 @@ import com.rachein.mmzf2.entity.VO.FileVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -38,4 +39,6 @@ public interface IArticleService extends IService<Article> {
     Long createArticle(ArticleAddRo ro);
 
     void updateByIdRedis(String articleId, ArticleAddRo updateRo);
+
+    Map<Long, List<ArticleVo>> listDraft();
 }

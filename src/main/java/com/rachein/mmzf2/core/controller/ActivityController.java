@@ -43,8 +43,4 @@ public class ActivityController {
         activityService.listUser(activityId);
     }
 
-
-
-
-
 }

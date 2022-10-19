@@ -46,9 +46,6 @@ public class Article implements Serializable {
     @TableField("author")
     private String author;
 
-    @ApiModelProperty("次序")
-    private Integer idx;
-
     @ApiModelProperty("推文id号")
     private Long draftId;
 

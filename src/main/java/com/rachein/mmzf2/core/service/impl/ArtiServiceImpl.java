@@ -7,7 +7,6 @@ import com.rachein.mmzf2.core.service.*;
 import com.rachein.mmzf2.entity.DB.*;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
-import com.rachein.mmzf2.entity.VO.ArticleResultVo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
 import com.rachein.mmzf2.exception.GlobalException;
@@ -18,13 +17,12 @@ import com.rachein.mmzf2.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -57,6 +55,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     @Autowired
     RedisService redisService;
 
+    @Value("resource.article.defaultCoverUrl")
+    private String default_coverUrl;
+
 
     @Override
     public FileVo coverUpload(MultipartFile file) {
@@ -65,24 +66,7 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         fileService.save(save);
         FileVo vo = new FileVo();
         BeanUtils.copyProperties(save, vo);
-//        vo.setId(save.getId());
-//        vo.setLocalUrl(save.getLocalUrl());
         return vo;
-//        String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token="+ AccessTokenUtil.getToken() +"&type=thumb";
-//        String media_id;
-//        //校验数据
-////        FileUtils.judge(file, 5000l, "img");
-//        //上传到微信服务器
-//        Response response = HttpRequestUtils.post(url, file, "media");
-//        try {
-//            String responseJson = response.body().string();
-//            media_id = JSON.parseObject(responseJson).getString("media_id");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        //备份到本地服务器中
-//        FileVo save = FileUtils.save(file, null, media_id);
-//        return save;
     }
 
     @Override
@@ -93,24 +77,6 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         FileVo vo = new FileVo();
         BeanUtils.copyProperties(save, vo);
         return vo;
-
-
-//        String url = "https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=" + AccessTokenUtil.getToken();
-//        String vx_url;
-//        //先进行检验文件
-////        FileUtils.judge(file, 5000l, "img");
-//        //上传到微信服务器中
-//        Response response = HttpRequestUtils.post(url, file, "media");
-//        try {
-//            String responseJson = response.body().string();
-//            vx_url = JSON.parseObject(responseJson).getString("url");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        //保存到本地硬盘,以及数据库
-//        FileVo save = FileUtils.save(file, vx_url, null);
-//        //返回链接
-//        return save;
     }
 
     @Override
@@ -125,10 +91,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         article.setDraftId(ro.getDraftId());
         article.setActivityId(ro.getActivityId());
         save(article);
-        Long articleId = article.getId();
         //redis中也保存一份
 //        redisService.set(ArticleKey.getById,articleId.toString(),article);
-        return articleId;
+        return article.getId();
     }
 
     @Override
@@ -139,6 +104,25 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         redisService.set(ArticleKey.getById, article.getId().toString(), article);
     }
 
+    @Override
+    public Map<Long, List<ArticleVo>> listDraft() {
+        //获取数据库中所有的推文的id
+        Map<Long, List<ArticleVo>> map = new HashMap<>();
+        Set<Long> draftIds = draftService.lambdaQuery()
+                .select(Draft::getId)
+                .list()
+                .stream().map(Draft::getId)
+                .collect(Collectors.toSet());
+        //从article表中
+        for (Long draftId : draftIds) {
+            List<ArticleVo> articleVos = listArticleByDraftId(draftId);
+            if (Objects.isNull(articleVos)) {
+                continue;
+            }
+            map.put(draftId, articleVos);
+        }
+        return map;
+    }
 
     @Override
     public void removeArticleById(Long articleId) {
@@ -166,14 +150,18 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
 
     @Override
+    /**
+     * //数据库创建Draft
+     * //return id
+     */
     public Long createDraft() {
-        /**
-         * //数据库创建Draft
-         * //return id
-         */
         Draft draft = new Draft();
         draftService.save(draft);
-        return draft.getId().longValue();
+//        //同时创建自动创建一个文章：
+//        Article a = new Article();
+//        a.setDraftId(draft.getId());
+//        save(a);
+        return draft.getId();
     }
 
     @Override
@@ -194,13 +182,11 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 //            articleVos.add(articleVo);
 //        });
 
-
         /**
          * 1.从article表 找到draft_id = draftId，
          *  select(Article::getTitle, Article::getCoverPath, Article::getId)
          * 直接返回
          */
-
         List<Article> darList = lambdaQuery().eq(Article::getDraftId, draftId).list();
         List<ArticleVo> articleVos = new ArrayList<>();
         darList.forEach(d -> {

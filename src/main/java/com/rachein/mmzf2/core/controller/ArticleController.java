@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -39,6 +40,14 @@ class ArticleController {
         return Result.success(vo);
     }
 
+    @ApiOperation(value = "上传图文消息内的图片获取URL【订阅号与服务号认证后均可用】",
+            tags = "请注意，本接口所上传的图片不占用公众号的素材库中图片数量的5000个的限制。图片仅支持jpg/png格式，大小必须在1MB以下。")
+    @PostMapping("article/material/upload")
+    public Result<FileVo> uploadContentMaterial(MultipartFile file) {
+        FileVo vo = articleService.materialUpload(file);
+        return Result.success(vo);
+    }
+
     @ApiOperation("创建推文")
     @GetMapping("/draft/create")
     private Result<Long> draftCreate() {
@@ -47,14 +56,6 @@ class ArticleController {
         return Result.success(draft.getId());
     }
 
-
-    @ApiOperation(value = "上传图文消息内的图片获取URL【订阅号与服务号认证后均可用】",
-            tags = "请注意，本接口所上传的图片不占用公众号的素材库中图片数量的5000个的限制。图片仅支持jpg/png格式，大小必须在1MB以下。")
-    @PostMapping("article/material/upload")
-    public Result<FileVo> uploadContentMaterial(MultipartFile file) {
-        FileVo vo = articleService.materialUpload(file);
-        return Result.success(vo);
-    }
 
 
 //    @ApiOperation(value = "群发推文", tags = "注意！本操作只面向已关注的人群，如果后面关注本公众号的，将无法接收到, 并且无法撤销！")
@@ -96,6 +97,13 @@ class ArticleController {
     public Result<Object> removeDraft(@PathVariable("draft_id") Long draftId) {
         articleService.removeDraftByDraftId(draftId);
         return Result.success("删除成功");
+    }
+
+    @ApiOperation("列出所有推文的文章")
+    @GetMapping("draft/all")
+    public Result<Map<Long, List<ArticleVo>>> listDraft() {
+        Map<Long, List<ArticleVo>> map = articleService.listDraft();
+        return Result.success(map);
     }
 
     @ApiOperation("删除草稿中的文章【根据文章的id】")
