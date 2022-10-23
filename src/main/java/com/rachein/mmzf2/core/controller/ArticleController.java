@@ -56,8 +56,6 @@ class ArticleController {
         return Result.success(draft.getId());
     }
 
-
-
 //    @ApiOperation(value = "群发推文", tags = "注意！本操作只面向已关注的人群，如果后面关注本公众号的，将无法接收到, 并且无法撤销！")
 //    @GetMapping("article/release/{media_id}/{tag}")
 //    public Result<Object> send(@PathVariable("media_id") String mediaId, @PathVariable("tag") String tag) {

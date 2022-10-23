@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Setter
 @TableName("student_high_info")
 @ApiModel(value = "StudentHighInfo对象", description = "大学生信息")
-public class StudentHighInfo implements Serializable {
+public class StudentHighInfo  {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class StudentHighInfo implements Serializable {
     @TableField("nickname")
     private String nickname;
 
-    @TableField("gender")
+    @TableField("性别")
     private Integer gender;
 
     @ApiModelProperty("名族")
@@ -61,7 +61,7 @@ public class StudentHighInfo implements Serializable {
 
     @ApiModelProperty("当前院校")
     @TableField("school")
-    private String school;
+    public String school;
 
     @ApiModelProperty("兴趣爱好、特长")
     @TableField("hobby")
@@ -104,7 +104,7 @@ public class StudentHighInfo implements Serializable {
     @TableField("jiuye_qingkuang")
     private String jiuyeQingkuang;
 
-    @ApiModelProperty("职业方向（选择  考公、考编/企业就业/创业）")
+    @ApiModelProperty("职业方向（选择 考公、考编/企业就业/创业）")
     @TableField("zhiye_direction")
     private String zhiyeDirection;
 
