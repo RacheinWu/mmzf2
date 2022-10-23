@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -38,4 +39,6 @@ public class UserFill {
     @ApiModelProperty("单选框的values，只有当type = select的时候才有内容")
     @TableField(exist = false)
     private List<String> optionValues;
+    private Boolean showPicker;
+
 }

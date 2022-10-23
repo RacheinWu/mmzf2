@@ -17,5 +17,6 @@ public class UserFillViewAuto {
     private String description;
     private String action;
     private String obj;
+    private Boolean showPicker;
 
 }

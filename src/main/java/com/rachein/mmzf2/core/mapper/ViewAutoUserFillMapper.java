@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rachein.mmzf2.entity.DB.UserFillViewAuto;
 import com.rachein.mmzf2.entity.VAO.UserFill;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 @Mapper
 public interface ViewAutoUserFillMapper extends BaseMapper<UserFillViewAuto> {
 
-    @Select("select * from user_fill_vo")
-    List<UserFill> list();
+    @Select("select * from user_fill_vo where  obj = ${obj}")
+    List<UserFill> list(@Param("obj") Integer id);
+
+
+
 }

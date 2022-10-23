@@ -1,8 +1,10 @@
 package com.rachein.mmzf2;
 
+import com.rachein.mmzf2.core.mapper.ViewAutoUserFillMapper;
 import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import io.swagger.annotations.ApiModelProperty;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Field;
@@ -35,5 +37,14 @@ class viewTest {
 
     @Test
     void insert() {
+    }
+
+    @Autowired
+    private ViewAutoUserFillMapper userFillMapper;
+
+    @Test
+    void uodate() {
+//        userFillMapper.up
+
     }
 }

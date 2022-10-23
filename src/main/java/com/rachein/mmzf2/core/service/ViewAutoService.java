@@ -10,6 +10,6 @@ import java.util.List;
  * @Description
  */
 public interface ViewAutoService {
-    List<UserFill> listUserFill();
+    List<UserFill> listUserFill(Integer id);
 
 }

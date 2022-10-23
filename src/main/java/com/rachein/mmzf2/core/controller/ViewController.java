@@ -6,6 +6,8 @@ import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +26,10 @@ public class ViewController {
     @Autowired
     private ViewAutoService viewAutoService;
 
-
-    @ApiOperation("")
-    public Result<List<UserFill>> listUserFill() {
-        List<UserFill> userFills = viewAutoService.listUserFill();
+    @ApiOperation("用户补充信息表单")
+    @GetMapping("/userFill/{id}")
+    public Result<List<UserFill>> listUserFill(@PathVariable Integer id) {
+        List<UserFill> userFills = viewAutoService.listUserFill(id);
         return Result.success(userFills);
     }
 }
