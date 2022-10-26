@@ -32,4 +32,11 @@ public class ViewController {
         List<UserFill> userFills = viewAutoService.listUserFill(id);
         return Result.success(userFills);
     }
+
+
+    @ApiOperation("用户信息表单")
+    @GetMapping("/table/user")
+    public void tableUser() {
+//        viewAutoService.
+    }
 }

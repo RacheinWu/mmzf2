@@ -2,6 +2,7 @@ package com.rachein.mmzf2.core.mapper;
 
 import com.rachein.mmzf2.entity.DB.Log;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-09-30
  */
 public interface LogMapper extends BaseMapper<Log> {
+
 
 }

@@ -22,9 +22,11 @@ public interface IUserService extends IService<User> {
 
     List<UserVo> listUserByIds(List<String> ids);
 
-    void updateInfoToHighStudent(String openId, StudentHighInfo info);
+    void updateInfoToHighStudent(StudentHighInfo info);
 
-    void updateInfoToLowStudent12(String openId, StudentLow12Info info);
+    void updateInfoToLowStudent12(StudentLow12Info info);
 
-    void updateInfoToLowStudent3(String openId, StudentLow3Info info);
+    void updateInfoToLowStudent3(StudentLow3Info info);
+
+    List<User> listUser();
 }

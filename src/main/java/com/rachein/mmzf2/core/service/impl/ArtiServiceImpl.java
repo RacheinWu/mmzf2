@@ -6,6 +6,7 @@ import com.rachein.mmzf2.core.mapper.FileMapper;
 import com.rachein.mmzf2.core.service.*;
 import com.rachein.mmzf2.entity.DB.*;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
+import com.rachein.mmzf2.entity.RO.ArticleReviewRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
@@ -122,6 +123,30 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
             map.put(draftId, articleVos);
         }
         return map;
+    }
+
+    @Override
+    public void review(ArticleReviewRo ro) {
+        //先从数据库中查询该文章：
+        Article one = lambdaQuery().eq(Article::getId, ro.getArticleId()).select(Article::getStatus, Article::getAuthor).one();
+        if (Objects.isNull(one)) {
+            throw new GlobalException(CodeMsg.BIND_ERROR);
+        }
+        //校验result：
+            if (ro.getResult()) {   //审核通过：
+
+            //查询到发送的群体，是群发还是条件发
+            //微信公众号发送推文
+        }
+        else {                     //审核不通过：
+
+        }
+        //微信公众号发送结果消息:
+        String msg = ro.getRemark();
+
+        //从数据库中更新状态
+        one.setStatus(1);
+        lambdaUpdate().eq(Article::getId, ro.getArticleId()).update(one);
     }
 
     @Override

@@ -5,8 +5,6 @@ import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import com.rachein.mmzf2.entity.DB.StudentLow12Info;
 import com.rachein.mmzf2.entity.DB.StudentLow3Info;
 import com.rachein.mmzf2.entity.DB.User;
-import com.rachein.mmzf2.entity.RO.UserUpdateRo;
-import com.rachein.mmzf2.entity.enums.UserCategoryEnum;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,18 +18,19 @@ import java.util.List;
  * @Description
  */
 @Api(tags = "用户模块")
+@RestController
 @RequestMapping("user")
 public class UserController {
 
     private IUserService userService;
 
-    @ApiOperation("获取关注的用户列表")
-    @GetMapping("/all")
-    public Result<List<User>> list() {
-//        List<User> list = userService.lambdaQuery().eq(User::getIsAdmin, false).list();
-//        return Result.success(list);
-        return null;
-    }
+//    @ApiOperation("获取关注的用户列表")
+//    @GetMapping("/all")
+//    public Result<List<User>> list() {
+////        List<User> list = userService.lambdaQuery().eq(User::getIsAdmin, false).list();
+////        return Result.success(list);
+//        return null;
+//    }
 
     @ApiOperation("获取用户info")
     @GetMapping("/info/{openId}")
@@ -55,22 +54,29 @@ public class UserController {
 //    }
 
     @ApiOperation("填充信息【大学生】")
-    @PostMapping("/info/fill/{openId}/high_student")
-    public void fillInfo(@PathVariable String openId, @RequestBody StudentHighInfo info) {
-        userService.updateInfoToHighStudent(openId, info);
+    @PostMapping("/info/fill/high_student")
+    public void fillInfo(@RequestBody StudentHighInfo info) {
+        userService.updateInfoToHighStudent(info);
     }
 
     @ApiOperation("填充信息【高一二学生】")
-    @PostMapping("/info/fill/{openId}/low_student_12")
-    public void fillInfo(@PathVariable String openId, @RequestBody StudentLow12Info info) {
-        userService.updateInfoToLowStudent12(openId, info);
+    @PostMapping("/info/fill/low_student_12")
+    public void fillInfo(@RequestBody StudentLow12Info info) {
+        userService.updateInfoToLowStudent12(info);
     }
 
     @ApiOperation("填充信息【高三学生】")
-    @PostMapping("/info/fill/{openId}/low_student_3")
-    public void fillInfo(@PathVariable String openId, @RequestBody StudentLow3Info info) {
-        userService.updateInfoToLowStudent3(openId, info);
+    @PostMapping("/info/fill/low_student_3")
+    public void fillInfo(@RequestBody StudentLow3Info info) {
+        userService.updateInfoToLowStudent3(info);
     }
 
+
+    @ApiOperation("会员列表")
+    @GetMapping("/all")
+    public Result<List<User>> listUser() {
+        List<User> users = userService.listUser();
+        return Result.success(users);
+    }
 
 }

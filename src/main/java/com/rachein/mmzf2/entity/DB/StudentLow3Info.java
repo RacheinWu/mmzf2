@@ -39,6 +39,11 @@ public class StudentLow3Info implements Serializable {
     @TableField("gender")
     private Integer gender;
 
+    @ApiModelProperty("微信联动")
+    @TableField("openid")
+    private String openid;
+
+
     @ApiModelProperty("名族")
     @TableField("minzu")
     private String minzu;

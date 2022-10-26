@@ -47,4 +47,13 @@ class viewTest {
 //        userFillMapper.up
 
     }
+
+    @Test
+    void StringFormat() {
+        String article = "<p>这是标题</p><div><img src=\"%s\"></div><div><img src=\"%s\"></div>";
+        String format = String.format(article, "http://itaem.cn/1adnwud/123da.jpg", "http://itaem.cn/1adnwud/123da.jpg");
+        System.out.println(format);
+
+    }
+
 }

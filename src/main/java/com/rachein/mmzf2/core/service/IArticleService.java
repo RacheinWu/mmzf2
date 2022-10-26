@@ -3,6 +3,7 @@ package com.rachein.mmzf2.core.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rachein.mmzf2.entity.DB.Article;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
+import com.rachein.mmzf2.entity.RO.ArticleReviewRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
@@ -41,4 +42,7 @@ public interface IArticleService extends IService<Article> {
     void updateByIdRedis(String articleId, ArticleAddRo updateRo);
 
     Map<Long, List<ArticleVo>> listDraft();
+
+    void review(ArticleReviewRo articleId);
+
 }
