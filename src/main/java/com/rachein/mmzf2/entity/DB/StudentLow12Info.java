@@ -3,6 +3,7 @@ package com.rachein.mmzf2.entity.DB;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -83,6 +84,7 @@ public class StudentLow12Info implements Serializable {
     @TableField("aim_school")
     private String aimSchool;
 
+    @ApiModelProperty("目标专业")
     @TableField("mubiao_major")
     private String mubiaoMajor;
 

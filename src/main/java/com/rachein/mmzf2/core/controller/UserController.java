@@ -4,13 +4,13 @@ import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import com.rachein.mmzf2.entity.DB.StudentLow12Info;
 import com.rachein.mmzf2.entity.DB.StudentLow3Info;
-import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -74,9 +74,9 @@ public class UserController {
 
     @ApiOperation("会员列表")
     @GetMapping("/all")
-    public Result<List<User>> listUser() {
-        List<User> users = userService.listUser();
-        return Result.success(users);
+    public Result<Map<String, List>> listUser() {
+        Map<String, List> res = userService.listUser();
+        return Result.success(res);
     }
 
 }

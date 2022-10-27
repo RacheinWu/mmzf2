@@ -62,5 +62,7 @@ public class User implements Serializable {
     @TableField("category_id")
     private Integer categoryId;
 
+    @ApiModelProperty("是否补充了信息")
+    private Boolean isFillInfo;
 
 }

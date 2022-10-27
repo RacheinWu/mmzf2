@@ -2,6 +2,7 @@ package com.rachein.mmzf2.core.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rachein.mmzf2.core.mapper.UserMapper;
+import com.rachein.mmzf2.core.mapper.ViewAutoUserFillMapper;
 import com.rachein.mmzf2.core.service.IStudentHighInfoService;
 import com.rachein.mmzf2.core.service.IStudentLow12InfoService;
 import com.rachein.mmzf2.core.service.IStudentLow3InfoService;
@@ -11,6 +12,7 @@ import com.rachein.mmzf2.entity.DB.StudentLow12Info;
 import com.rachein.mmzf2.entity.DB.StudentLow3Info;
 import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.entity.RO.UserUpdateRo;
+import com.rachein.mmzf2.entity.VAO.UserTableVAO;
 import com.rachein.mmzf2.entity.VO.UserVo;
 import com.rachein.mmzf2.exception.GlobalException;
 import com.rachein.mmzf2.result.CodeMsg;
@@ -18,7 +20,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -37,6 +41,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     @Autowired
     private IStudentLow12InfoService studentLow12InfoService;
+
+    @Autowired
+    private ViewAutoUserFillMapper viewAutoUserFillMapper;
 
 
     @Override
@@ -102,8 +109,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
     }
 
     @Override
-    public List<User> listUser() {
-        List<User> list = lambdaQuery().list();
-        return list;
+    public Map<String, List> listUser() {
+        Map<String, List> map = new HashMap<>();
+        //表格头
+        List<UserTableVAO> tableHead = viewAutoUserFillMapper.listUserTable();
+        //数据内容
+        List<User> content = lambdaQuery().list();
+        map.put("head", tableHead);
+        map.put("content", content);
+        return map;
     }
 }

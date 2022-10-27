@@ -40,5 +40,6 @@ public class UserFill {
     @TableField(exist = false)
     private List<String> optionValues;
     private Boolean showPicker;
+    private String name;
 
 }

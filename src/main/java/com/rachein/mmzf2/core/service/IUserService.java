@@ -9,6 +9,7 @@ import com.rachein.mmzf2.entity.RO.UserUpdateRo;
 import com.rachein.mmzf2.entity.VO.UserVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -28,5 +29,5 @@ public interface IUserService extends IService<User> {
 
     void updateInfoToLowStudent3(StudentLow3Info info);
 
-    List<User> listUser();
+    Map<String, List> listUser();
 }

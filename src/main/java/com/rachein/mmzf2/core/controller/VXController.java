@@ -1,22 +1,21 @@
 package com.rachein.mmzf2.core.controller;
 
-import ch.qos.logback.core.joran.spi.XMLUtil;
 import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.core.service.impl.UserQueue;
+import com.rachein.mmzf2.core.service.impl.VXServiceImpl;
+import com.rachein.mmzf2.entity.DB.User;
+import com.rachein.mmzf2.result.Result;
 import com.rachein.mmzf2.utils.MessageUtil;
 import com.rachein.mmzf2.utils.XmlUtil;
-import lombok.Data;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOError;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,6 +30,16 @@ public class VXController {
 
     @Autowired
     private IUserService userService;
+
+    @Value("${wechat.appid}")
+    private String appid;
+
+//    @Value("${wechat.appsecret}")
+//    private String appsecret;
+
+    @Autowired
+    private VXServiceImpl vxService;
+
 
     //微信认证测试
     @GetMapping("/wechat")
@@ -50,17 +59,37 @@ public class VXController {
         if (msgType.equals("event")){
             String event = map.get("Event");
             if (event.equals("subscribe")){
-                reply = "感谢你的订阅";
+                reply = "感谢你的订阅<a href=\"http://cn-hk-nf-1.natfrp.cloud:34839/profile\">x</a>";
                 log.info(fromUserName);
-
-//                UserQueue.QUEUE.push(fromUserName);
+                UserQueue.QUEUE.push(fromUserName);
             }else if (event.equals("unsubscribe")){
-                reply = "触发不再关注事件";
-//                userService.removeByOpenId(fromUserName);
+                log.info("触发不再关注事件");
             }
         }
-
         return MessageUtil.formatMsg(fromUserName, toUserName, 1, "text", reply);
     }
 
+    @ApiOperation("返回微信认证所需参数")
+    @GetMapping("/profile")
+    public Result<Map<String, String>> profile() {
+        //appid	是	公众号的唯一标识
+        //获取公众号的appsecret
+        //scope = snsapi_base
+        //response_type	是	返回类型，请填写code
+        Map<String, String> map = new HashMap<>();
+        map.put("appid", appid);
+        map.put("scope", "snsapi_base");
+        map.put("response_type", "code");
+        return Result.success(map);
+    }
+
+    @PostMapping("/get/access_token")
+    public void getWebAccessToken(@RequestParam("code") String code) {
+        vxService.getWebACTokenByCode(code);
+    }
+
+    @GetMapping("/login")
+    public void login(@RequestParam("url") String url) {
+        vxService.login(url);
+    }
 }

@@ -133,7 +133,7 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
             throw new GlobalException(CodeMsg.BIND_ERROR);
         }
         //校验result：
-            if (ro.getResult()) {   //审核通过：
+        if (ro.getResult()) {   //审核通过：
 
             //查询到发送的群体，是群发还是条件发
             //微信公众号发送推文

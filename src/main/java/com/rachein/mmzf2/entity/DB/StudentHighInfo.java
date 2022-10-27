@@ -37,7 +37,7 @@ public class StudentHighInfo  {
     private String avatar;
 
     @ApiModelProperty("真实姓名")
-    @TableField("nickname")
+        @TableField("nickname")
     private String nickname;
 
     @TableField("性别")

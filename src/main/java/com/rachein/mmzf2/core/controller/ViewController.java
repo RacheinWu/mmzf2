@@ -34,9 +34,4 @@ public class ViewController {
     }
 
 
-    @ApiOperation("用户信息表单")
-    @GetMapping("/table/user")
-    public void tableUser() {
-//        viewAutoService.
-    }
 }
