@@ -1,0 +1,55 @@
+{
+  "code" : 200,
+  "msg" : "success",
+  "data" : {
+    "head" : [
+      {
+        "type" : "span",
+        "name" : "xuhao",
+        "description" : "#",
+        "index" : 1
+      },
+      {
+        "type" : "span",
+        "name" : "nickname",
+        "description" : "真实名称",
+        "index" : "2"
+      },
+      {
+        "type" : "span",
+        "name" : "openid",
+        "description" : "微信号",
+        "index" : 3
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_enter",
+        "description" : "入会时间",
+        "index" : 4
+      },
+      {
+        "type" : "span",
+        "name" : "identity",
+        "description" : "身份",
+        "index" : 5
+      },
+      {
+        "type" : "a",
+        "name" : "manager",
+        "description" : "是否管理员",
+        "index" : 6
+      }
+    ],
+    "body" : [
+      {
+        "openid" : "123123123123",
+        "phone" : "123123123",
+        "nickname" : "吴远健",
+        "gender" : "男",
+        "time_enter" : "2016-08-09 00:35:00",
+        "manager" : "二级管理员",
+        "identity" : "高三学生"
+      }
+    ]
+  }
+}

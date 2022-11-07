@@ -1,0 +1,130 @@
+{
+  "code" : 200,
+  "msg" : "success",
+  "data" : {
+    "head" : [
+      {
+        "type" : "img",
+        "name" : "coverImg",
+        "description" : "封面图片",
+        "index" : 2
+      },
+      {
+        "type" : "span",
+        "name" : "xuhao",
+        "description" : "#",
+        "index" : 1
+      },
+      {
+        "type" : "span",
+        "name" : "state",
+        "description" : "状态",
+        "index" : 3
+      },
+      {
+        "type" : "span",
+        "name" : "applicant",
+        "description" : "申请人",
+        "index" : 4
+      },
+      {
+        "type" : "a",
+        "name" : "method",
+        "description" : "发布方式",
+        "index" : 5
+      },
+      {
+        "type" : "time",
+        "name" : "application",
+        "description" : "申请时间",
+        "index" : 6
+      },
+      {
+        "type" : "time",
+        "name" : "release",
+        "description" : "发布时间",
+        "index" : 7
+      }
+    ],
+    "body" : [
+      {
+        "application" : "2016-08-09 00:35:00",
+        "release" : "2016-08-09 00:35:00",
+        "state" : "已发布",
+        "applicant" : "吴远健",
+        "coverImg" : "https://rachein.itaem.cn/phd/res/JDawd213dmwado2p1312escaowda.png",
+        "发送方式" : "tag",
+        "id" : 1312,
+        "tag" : {
+          "age": {
+            "upper" : 44,
+            "lower" : 12
+          },
+          "identity" : ["高三学生"],
+          "major" : ["cs"]
+        }
+      },
+      {
+        "application" : "2016-08-09 00:35:00",
+        "release" : null,
+        "state" : "待审核",
+        "applicant" : "吴远健",
+        "coverImg" : "https://rachein.itaem.cn/phd/res/JDawd213dmwado2p1312escaowda.png",
+        "发送方式" : "all",
+        "id" : 1312,
+        "tag" : null
+      },
+      {
+        "application" : "2016-08-09 00:35:00",
+        "release" : "2016-08-09 00:35:00",
+        "state" : "驳回",
+        "applicant" : "吴远健",
+        "coverImg" : "https://rachein.itaem.cn/phd/res/JDawd213dmwado2p1312escaowda.png",
+        "发送方式" : "tag",
+        "id" : 1312,
+        "tag" : {
+          "age": {
+            "upper" : 44,
+            "lower" : 12
+          },
+          "identity" : null,
+          "major" : null
+        }
+      },
+      {
+        "application" : "2016-08-09 00:35:00",
+        "release" : "2016-08-09 00:35:00",
+        "state" : "已发布",
+        "applicant" : "吴远健",
+        "coverImg" : "https://rachein.itaem.cn/phd/res/JDawd213dmwado2p1312escaowda.png",
+        "发送方式" : "tag",
+        "id" : 1312,
+        "tag" : {
+          "age": {
+            "upper" : 44,
+            "lower" : 12
+          },
+          "identity" : "高三学生",
+          "major" : "cs"
+        }
+      },
+      {
+        "application" : "2016-08-09 00:35:00",
+        "release" : "2016-08-09 00:35:00",
+        "state" : "已发布",
+        "applicant" : "吴远健",
+        "coverImg" : "https://rachein.itaem.cn/phd/res/JDawd213dmwado2p1312escaowda.png",
+        "发送方式" : "tag",
+        "id" : 1312,
+        "tag" : {
+          "age": {
+            "upper" : 44,
+            "lower" : 12
+          },
+          "identity" : "高三学生",
+          "major" : "cs"
+        }
+      }
+    ]
+  }
+}

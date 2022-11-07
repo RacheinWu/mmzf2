@@ -29,6 +29,8 @@ public class CodeMsg {
 
     //用户：5003xx
     public static CodeMsg USER_NOT_FOUND = new CodeMsg(500301, "找不到用户！");
+    public static CodeMsg USER_LOGIN_ERROR = new CodeMsg(500302, "登录失败！");
+    public static CodeMsg USER_NOT_LOGIN_YET = new CodeMsg(500303, "尚未登录！");
 
 
     public CodeMsg() {

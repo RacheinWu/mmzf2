@@ -1,9 +1,10 @@
 package com.rachein.mmzf2.core.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
 import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.core.service.impl.UserQueue;
 import com.rachein.mmzf2.core.service.impl.VXServiceImpl;
-import com.rachein.mmzf2.entity.DB.User;
 import com.rachein.mmzf2.result.Result;
 import com.rachein.mmzf2.utils.MessageUtil;
 import com.rachein.mmzf2.utils.XmlUtil;
@@ -59,7 +60,7 @@ public class VXController {
         if (msgType.equals("event")){
             String event = map.get("Event");
             if (event.equals("subscribe")){
-                reply = "感谢你的订阅<a href=\"http://cn-hk-nf-1.natfrp.cloud:34839/profile\">x</a>";
+                reply = "感谢你的订阅<a href=\"http://cn-hk-nf-1.natfrp.cloud:24669/i/index.html\">x</a>";
                 log.info(fromUserName);
                 UserQueue.QUEUE.push(fromUserName);
             }else if (event.equals("unsubscribe")){
@@ -83,13 +84,28 @@ public class VXController {
         return Result.success(map);
     }
 
+    @ApiOperation("用code获取accessToken")
     @PostMapping("/get/access_token")
-    public void getWebAccessToken(@RequestParam("code") String code) {
-        vxService.getWebACTokenByCode(code);
+    public Result<Object> getWebAccessToken(@RequestBody String code) {
+        String code2 = code.replace("=", "");
+        log.info(code2);
+
+        SaTokenInfo tokenInfo = vxService.getWebACTokenByCode(code2);
+        return Result.success(tokenInfo);
+
     }
 
     @GetMapping("/login")
-    public void login(@RequestParam("url") String url) {
-        vxService.login(url);
+    public boolean login2() {
+        StpUtil.login("1");
+        return StpUtil.isLogin();
     }
+
+
+
+//    @GetMapping("/login")
+//    public void login(@RequestParam("url") String url) {
+//        vxService.login(url);
+//    }
+
 }

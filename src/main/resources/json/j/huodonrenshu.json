@@ -1,0 +1,60 @@
+{
+  "code" : 200,
+  "msg" : "success",
+  "data": {
+    "head" : [
+      {
+        "type" : "span",
+        "name" : "xuhao",
+        "description" : "#",
+        "index" : 1
+      },
+      {
+        "type" : "span",
+        "name" : "nickname",
+        "description" : "真实名称",
+        "index" : 2
+      },
+      {
+        "type" : "span",
+        "name" : "gender",
+        "description" : "性别",
+        "index" : 3
+      },
+      {
+        "type" : "span",
+        "name" : "openid",
+        "description" : "微信号",
+        "index" : 4
+      },
+      {
+        "type" : "span",
+        "name" : "phone",
+        "description" : "手机号",
+        "index" : 5
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_application",
+        "description" : "报名时间",
+        "index" : 6
+      }
+    ],
+    "body" : [
+      {
+        "nickname" : "吴远健",
+        "gender" : "男",
+        "openid" : "daw123wdawe",
+        "phone" : "12312312",
+        "time_application" : "2016-08-09 00:35:00"
+      },
+      {
+        "nickname" : "吴远健",
+        "gender" : "男",
+        "openid" : "daw123wdawe",
+        "phone" : "12312312",
+        "time_application" : "2016-08-09 00:35:00"
+      }
+    ]
+  }
+}

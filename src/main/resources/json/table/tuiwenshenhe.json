@@ -1,0 +1,34 @@
+{
+  "code" : 200,
+  "msg" : "success",
+  "data" : {
+    "table_head" : [
+      {
+        "description" :  "序号",
+        "name" : "index",
+        "index" : 1,
+        "type" : "span"
+      },
+      {
+        "description" : "封面（推文第一个封面）",
+        "name" : "coverImg",
+        "index" : 2,
+        "type" : "img"
+      }
+    ],
+    "body" : [
+      {
+        "id" : 1313,
+        "coverImg" : "http:1.1.1.1.0/lzl.png"
+      },
+      {
+        "id" : 1312,
+        "coverImg" : "http:1.1.1.1.0/lz1l.png"
+      },
+      {
+        "id" : 1311,
+        "coverImg" : "http:1.1.1.1.0/3lzl.png"
+      }
+    ]
+  }
+}

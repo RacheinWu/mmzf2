@@ -1,0 +1,74 @@
+{
+  "code" : 200,
+  "msg" : "success",
+  "data" : {
+    "head" : [
+      {
+        "type" : "span",
+        "name" : "xuhao",
+        "description" : "#",
+        "index" : 1
+      },
+      {
+        "type" : "span",
+        "name" : "title",
+        "description" : "活动名称",
+        "index" : 2
+      },
+      {
+        "type" : "span",
+        "name" : "participant_count",
+        "description" : "报名人数",
+        "index" : 3
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_start",
+        "description" : "活动开始时间",
+        "index" : 4
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_end",
+        "description" : "活动结束时间",
+        "index" : 5
+      },
+      {
+        "type" : "a",
+        "name" : "article",
+        "description" : "关联的文章内容",
+        "index" : 6
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_register_start",
+        "description" : "报名开始时间",
+        "index" : 7
+      },
+      {
+        "type" : "datetime",
+        "name" : "time_register_end",
+        "description" : "报名结束时间",
+        "index" : 8
+      },
+      {
+        "type" : "span",
+        "name" : "state",
+        "description" : "状态",
+        "index" : 9
+      }
+    ],
+    "body" : [
+      {
+        "title" : "第七届青少年羽毛球街道杯",
+        "participant_count" : 109,
+        "time_start" : "2016-08-09 00:35:00",
+        "time_end" : "2016-08-09 00:35:00",
+        "article" : "https://weixin.map/dawawdawd",
+        "time_register_start" : "2016-08-09 00:35:00",
+        "time_register_end" : "2016-08-09 00:35:00",
+        "state" : "未发布"
+      }
+    ]
+  }
+}

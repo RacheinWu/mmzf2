@@ -1,14 +1,19 @@
 package com.rachein.mmzf2.core.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.rachein.mmzf2.core.service.IUserService;
 import com.rachein.mmzf2.entity.DB.StudentHighInfo;
 import com.rachein.mmzf2.entity.DB.StudentLow12Info;
 import com.rachein.mmzf2.entity.DB.StudentLow3Info;
+import com.rachein.mmzf2.exception.GlobalException;
+import com.rachein.mmzf2.result.CodeMsg;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +82,24 @@ public class UserController {
     public Result<Map<String, List>> listUser() {
         Map<String, List> res = userService.listUser();
         return Result.success(res);
+    }
+
+    @ApiOperation("检测是否登录")
+    @GetMapping("/login/check")
+    public Result<Object> isLogin() {
+        boolean login = false;
+        try {
+            StpUtil.checkLogin();
+            login = StpUtil.isLogin();
+            System.out.println("是否登录?   " + login);
+        } catch (Exception e) {
+            System.out.println("?!@#!@#!@#!@#!@#!@#!!!!!!!!!!!!!!!!!!!!!!!");
+            e.printStackTrace();
+        }
+        if (!login) {
+            throw new GlobalException(CodeMsg.USER_NOT_LOGIN_YET);
+        }
+        return Result.success("已经登录");
     }
 
 }
