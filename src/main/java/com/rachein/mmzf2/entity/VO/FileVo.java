@@ -10,5 +10,7 @@ import lombok.Data;
 @Data
 public class FileVo {
     private Long id;
-    private String localUrl;
+    private String url;
+    private String alt;
+    private String href;
 }

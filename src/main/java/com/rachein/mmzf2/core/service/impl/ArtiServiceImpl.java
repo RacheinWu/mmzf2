@@ -98,9 +98,10 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     }
 
     @Override
-    public void updateByIdRedis(String articleId, ArticleAddRo updateRo) {
+    public void updateContentById(ArticleAddRo ro) {
+        //复制
         Article article = new Article();
-        BeanUtils.copyProperties(updateRo, article);
+        BeanUtils.copyProperties(ro, article);
         //更新到redis中
         redisService.set(ArticleKey.getById, article.getId().toString(), article);
     }
@@ -147,6 +148,14 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         //从数据库中更新状态
         one.setStatus(1);
         lambdaUpdate().eq(Article::getId, ro.getArticleId()).update(one);
+    }
+
+    @Override
+    public void updateTitle(Long articleId, String newTile) {
+        Article a = new Article();
+        a.setTitle(newTile);
+        lambdaUpdate().eq(Article::getId, articleId)
+                .update(a);
     }
 
     @Override

@@ -39,10 +39,11 @@ public interface IArticleService extends IService<Article> {
 
     Long createArticle(ArticleAddRo ro);
 
-    void updateByIdRedis(String articleId, ArticleAddRo updateRo);
+    void updateContentById(ArticleAddRo updateRo);
 
     Map<Long, List<ArticleVo>> listDraft();
 
     void review(ArticleReviewRo articleId);
 
+    void updateTitle(Long articleId, String newTile);
 }

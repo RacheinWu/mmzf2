@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mzzf?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/mzzf?serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
     # 数据库用户名&密码：
     username: root
     password: wuyuanjian0

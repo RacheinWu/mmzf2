@@ -41,7 +41,7 @@
       },
       {
         "type" : "time",
-        "name" : "release",
+        "name" : "release_time",
         "description" : "发布时间",
         "index" : 7
       }

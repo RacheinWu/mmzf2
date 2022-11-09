@@ -35,6 +35,6 @@ public class MapperSettingAuto implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("gmtModified", new Date(), metaObject);
+        this.setFieldValByName("gmtModified", LocalDateTime.now(), metaObject);
     }
 }

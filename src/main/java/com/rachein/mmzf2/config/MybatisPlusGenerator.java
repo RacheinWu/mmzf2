@@ -36,7 +36,7 @@ public class MybatisPlusGenerator {
                 })
                 .strategyConfig(builder -> {
 
-                    builder.addInclude("user_role"); // 设置需要生成的表名
+                    builder.addInclude("table_head_vo"); // 设置需要生成的表名
                     builder.addTablePrefix("t_");//跳过前缀
                 })
                 .strategyConfig(builder -> {

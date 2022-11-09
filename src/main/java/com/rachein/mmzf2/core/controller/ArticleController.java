@@ -2,10 +2,8 @@ package com.rachein.mmzf2.core.controller;
 
 import com.rachein.mmzf2.core.service.IArticleService;
 import com.rachein.mmzf2.core.service.IDraftService;
-import com.rachein.mmzf2.entity.DB.Draft;
 import com.rachein.mmzf2.entity.RO.ArticleAddRo;
 import com.rachein.mmzf2.entity.VO.ArticleInfoVo;
-import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.entity.VO.FileVo;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
@@ -13,9 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -48,20 +43,6 @@ class ArticleController {
         return Result.success(vo);
     }
 
-    @ApiOperation("创建推文")
-    @GetMapping("/draft/create")
-    private Result<Long> draftCreate() {
-        Draft draft = new Draft();
-        draftService.save(draft);
-        return Result.success(draft.getId());
-    }
-
-//    @ApiOperation(value = "群发推文", tags = "注意！本操作只面向已关注的人群，如果后面关注本公众号的，将无法接收到, 并且无法撤销！")
-//    @GetMapping("article/release/{media_id}/{tag}")
-//    public Result<Object> send(@PathVariable("media_id") String mediaId, @PathVariable("tag") String tag) {
-//        articleService.send(mediaId, tag);
-//        return Result.success(null);
-//    }
 
     @ApiOperation("创建文章")
     @PostMapping("article/create")
@@ -69,15 +50,6 @@ class ArticleController {
         Long articleId = articleService.createArticle(ro);
         return Result.success(articleId);
     }
-
-
-//    @ApiOperation(value = "发布推文", tags = "本操作，将使得推文公开，所有人群包括没有订阅的人群也将可以访问")
-//    @GetMapping("article/release/{media_id}")
-//    public Result<Object> send(@PathVariable("media_id") String mediaId) {
-//        articleService.send(mediaId);
-//        return Result.success("发布成功！");
-//    }
-
 
     /**
      * 待开发
@@ -90,20 +62,6 @@ class ArticleController {
 //        return Result.success("撤销成功！");
 //    }
 
-    @ApiOperation("删除整个推文【根据推文id】")
-    @GetMapping("draft/remove/{draft_id}")
-    public Result<Object> removeDraft(@PathVariable("draft_id") Long draftId) {
-        articleService.removeDraftByDraftId(draftId);
-        return Result.success("删除成功");
-    }
-
-    @ApiOperation("列出所有推文的文章")
-    @GetMapping("draft/all")
-    public Result<Map<Long, List<ArticleVo>>> listDraft() {
-        Map<Long, List<ArticleVo>> map = articleService.listDraft();
-        return Result.success(map);
-    }
-
     @ApiOperation("删除草稿中的文章【根据文章的id】")
     @GetMapping("article/remove/{article_id}")
     public Result<Object> removeArticle(@PathVariable("article_id") Long articleId) {
@@ -112,9 +70,9 @@ class ArticleController {
     }
 
     @ApiOperation("更新草稿箱中的文章")
-    @PostMapping("draft/article/update/{article_id}")
-    public Result<String> update(@PathVariable("article_id") String articleId, @RequestBody ArticleAddRo updateRo) {
-        articleService.updateByIdRedis(articleId, updateRo);
+    @PostMapping("article/update")
+    public Result<String> update(@RequestBody ArticleAddRo updateRo) {
+        articleService.updateContentById(updateRo);
         return Result.success("更新草稿成功！");
     }
 
@@ -125,11 +83,12 @@ class ArticleController {
         return Result.success(articleInfoVo);
     }
 
-    @ApiOperation("查看某一草稿的文章粗略")
-    @GetMapping("draft/{draft_id}")
-    public Result<List<ArticleVo>> listArticleByDraftId(@PathVariable("draft_id") Long draftId) {
-        List<ArticleVo> articleVos = articleService.listArticleByDraftId(draftId);
-        return Result.success(articleVos);
+    @ApiOperation("更改文章标题")
+    @PostMapping("article/title/update")
+    public Result<Object> updateTile(@RequestParam("new_title") String newTile, @RequestParam("article_id") Long articleId) {
+        articleService.updateTitle(articleId, newTile);
+        return Result.success("修改成功");
     }
+
 
 }

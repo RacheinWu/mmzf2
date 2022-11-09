@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @TableName("t_draft")
-@ApiModel(value = "Draft对象", description = "")
+@ApiModel(value = "推文对象", description = "")
 public class Draft implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,8 +27,13 @@ public class Draft implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    private Integer status;
-    private Integer isFabu;
+    private String state;
+
+    private String coverImg;
+    private LocalDateTime releaseTime;
+    private LocalDateTime applicationTime;
+    private String method;
+    private String applicant;
 
     @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;

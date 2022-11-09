@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -33,7 +34,7 @@ public class ScheduleTime {
     @Scheduled(cron = "0/5 * * * * ? ")
     public void redisMysqlSync() {
         //推文的文章同步:
-//        articleSync();
+        articleSync();
     }
 
     /**
@@ -41,16 +42,22 @@ public class ScheduleTime {
      */
     private void articleSync() {
         //从集合中获取任务
-        Set<String> ids = redisService.getKeysByPrefix(ArticleKey.PREFIX);
-        List<Article> articleList = new ArrayList<>();
-        //从redis中读取
-        for (String articleId : ids) {
-            Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
-            articleList.add(article);
-            redisService.delete(ArticleKey.getById, articleId); //这个删除很关键
+        Set<String> ids = redisService.getKeysByPrefix("ArticleKey:" + ArticleKey.PREFIX);
+//        log.info(ids.toString());
+        //用来收集对应的article缓冲对象
+        if (ids.size() != 0) {
+            List<Article> articleList = new ArrayList<>();
+            //从redis中读取
+            for (String articleId : ids) {
+                Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
+                log.info(article.toString());
+                articleList.add(article);
+                redisService.delete(ArticleKey.getById, articleId); //这个删除很关键
+                articleService.updateById(article);
+            }
+            //同步到mysql中
+//            articleService.updateBatchById(articleList);
+            log.info("文章更新同步到mysql成功！");
         }
-        //同步到mysql中
-        articleService.updateBatchById(articleList);
-        log.info("文章更新同步到mysql成功！");
     }
 }

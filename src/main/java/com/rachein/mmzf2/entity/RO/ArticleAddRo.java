@@ -1,5 +1,6 @@
 package com.rachein.mmzf2.entity.RO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,6 +13,11 @@ import java.util.List;
  */
 @Data
 public class ArticleAddRo {
+    @JsonProperty("article_id")
+    private Long id;
+    @JsonProperty("draft_id")
     private Long draftId;
+    @JsonProperty("activity_id")
     private Long activityId;
+    private String content;
 }
