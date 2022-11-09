@@ -46,12 +46,10 @@ public class ScheduleTime {
 //        log.info(ids.toString());
         //用来收集对应的article缓冲对象
         if (ids.size() != 0) {
-            List<Article> articleList = new ArrayList<>();
             //从redis中读取
             for (String articleId : ids) {
                 Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
                 log.info(article.toString());
-                articleList.add(article);
                 redisService.delete(ArticleKey.getById, articleId); //这个删除很关键
                 articleService.updateById(article);
             }
