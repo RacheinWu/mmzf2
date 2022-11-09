@@ -30,8 +30,8 @@ class ArticleController {
     @ApiOperation(value = "上传推文封面", notes = "最近更新：永久图片素材新增后，将带有 URL 返回给开发者，开发者可以在腾讯系域名内使用（腾讯系域名外使用，图片将被屏蔽）。\n" +
             "缩略图（thumb）：64KB，支持 JPG 格式")
     @PostMapping("article/cover/upload")
-    public Result<FileVo> uploadCover(MultipartFile file) {
-        FileVo vo = articleService.coverUpload(file);
+    public Result<FileVo> uploadCover(MultipartFile file, @RequestParam("article_id") Long articleId) {
+        FileVo vo = articleService.coverUpload(file, articleId);
         return Result.success(vo);
     }
 

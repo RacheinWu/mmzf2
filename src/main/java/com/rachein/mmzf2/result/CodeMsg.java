@@ -32,6 +32,14 @@ public class CodeMsg {
     public static CodeMsg USER_LOGIN_ERROR = new CodeMsg(500302, "登录失败！");
     public static CodeMsg USER_NOT_LOGIN_YET = new CodeMsg(500303, "尚未登录！");
 
+    //推文：5004xx
+    public static CodeMsg DRAFT_NOT_FOUND = new CodeMsg(500401, "找不到对应的推文！");
+    public static CodeMsg DRAFT_APPLICATION_FAIL = new CodeMsg(500402, "申请发表失败，请重新再试！");
+
+    //文章: 5005xx
+    public static CodeMsg ARTICLE_NOT_FOUND = new CodeMsg(500501, "找不到对应的文章！");
+
+
 
     public CodeMsg() {
     }

@@ -77,7 +77,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDB> implements 
         fileDB.setOldName(originalFilename);
         fileDB.setSize(size);
         fileDB.setType(type);
-        fileDB.setLocalUrl(network_path);
+        fileDB.setUrl(network_path);
         fileDB.setSuffix(extension);
         save(fileDB);
 

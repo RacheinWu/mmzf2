@@ -81,7 +81,7 @@ public class FileUtils {
         fileDB.setOldName(originalFilename);
         fileDB.setSize(size);
         fileDB.setType(file_type);
-        fileDB.setLocalUrl(network_path);
+        fileDB.setUrl(network_path);
         fileDB.setSuffix(extension);
 //        fileDB.setVx_url(vx_url);
 //        fileDB.setMediaId(media_id);
@@ -130,7 +130,7 @@ public class FileUtils {
         fileDB.setOldName(originalFilename);
         fileDB.setSize(size);
         fileDB.setType(file_type);
-        fileDB.setLocalUrl(network_path);
+        fileDB.setUrl(network_path);
         fileDB.setSuffix(extension);
 //        fileDB.setVx_url(vx_url);
 //        fileDB.setMediaId(media_id);

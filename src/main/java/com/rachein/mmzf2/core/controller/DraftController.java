@@ -6,14 +6,13 @@ import com.rachein.mmzf2.core.service.ITableHeadVoService;
 import com.rachein.mmzf2.entity.DB.Article;
 import com.rachein.mmzf2.entity.DB.Draft;
 import com.rachein.mmzf2.entity.DB.TableHeadVo;
+import com.rachein.mmzf2.entity.RO.DraftApplicationRo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +58,7 @@ public class DraftController {
                 .list();
         //数据
         List<Draft> body = draftService.lambdaQuery()
+//                .eq()
                 .list();
         //
         map.put("head", head);
@@ -96,6 +96,7 @@ public class DraftController {
     @GetMapping("draft/remove/{draft_id}")
     public Result<Object> removeDraft(@PathVariable("draft_id") Long draftId) {
         articleService.removeDraftByDraftId(draftId);
+        Article article = new Article();
         return Result.success("删除成功");
     }
 
@@ -105,6 +106,13 @@ public class DraftController {
     public Result<List<ArticleVo>> listArticleByDraftId(@PathVariable("draft_id") Long draftId) {
         List<ArticleVo> articleVos = articleService.listArticleByDraftId(draftId);
         return Result.success(articleVos);
+    }
+
+    @ApiOperation("申请发布推文，参数是标签")
+    @PostMapping("draft/publish/application")
+    public Result<String> application(@RequestBody DraftApplicationRo ro) {
+        draftService.application(ro);
+        return Result.success("申请成功！请等待一级管理员审核。");
     }
 
     //    @ApiOperation(value = "发布推文", tags = "本操作，将使得推文公开，所有人群包括没有订阅的人群也将可以访问")

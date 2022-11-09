@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public interface IArticleService extends IService<Article> {
 
-    FileVo coverUpload(MultipartFile file);
+    FileVo coverUpload(MultipartFile file, Long articleId);
 
     FileVo materialUpload(MultipartFile file);
 

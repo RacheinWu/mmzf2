@@ -54,6 +54,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     private IActivityService activityService;
 
     @Autowired
+    private IArticleService articleService;
+
+    @Autowired
     RedisService redisService;
 
     @Value("resource.article.defaultCoverUrl")
@@ -61,12 +64,18 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
 
     @Override
-    public FileVo coverUpload(MultipartFile file) {
+    public FileVo coverUpload(MultipartFile file, Long articleId) {
+        //校验文件
         FileUtils.judge(file, 5000l, "img");
+        //保存到本地
         FileDB save = FileUtils.save(file, null, null);
+        //url保存到服务器
         fileService.save(save);
         FileVo vo = new FileVo();
+        System.out.println(vo);
         BeanUtils.copyProperties(save, vo);
+        //更新对应推文的封面url:
+        articleService.lambdaUpdate().eq(Article::getId, articleId).set(Article::getCoverPath, vo.getUrl()).update();
         return vo;
     }
 
@@ -169,15 +178,16 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     @Override
     public ArticleInfoVo getArticleInfoById(String articleId) {
         //先从redis中获取信息
-        Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
+//        Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
+        Article article = lambdaQuery().eq(Article::getId, articleId).one();
         ArticleInfoVo infoVo = new ArticleInfoVo();
         //如果redis中没数据，那么从数据库中获取信息:
-        if (Objects.isNull(article)){
-            article = lambdaQuery()
-                    .eq(Article::getId, articleId)
-                    .select(Article::getId, Article::getContent, Article::getAuthor, Article::getTitle)
-                    .one();
-        }
+//        if (Objects.isNull(article)){
+//            article = lambdaQuery()
+//                    .eq(Article::getId, articleId)
+//                    .select(Article::getId, Article::getContent, Article::getAuthor, Article::getTitle)
+//                    .one();
+//        }
         BeanUtils.copyProperties(article, infoVo);
         return infoVo;
     }

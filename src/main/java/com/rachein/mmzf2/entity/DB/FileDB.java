@@ -34,7 +34,7 @@ public class FileDB implements Serializable {
 
     @ApiModelProperty("保存地址")
     @TableField("path")
-    private String localUrl;
+    private String url;
 
     @ApiModelProperty("UUID保存的名字")
     @TableField("name")
