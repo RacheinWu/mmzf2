@@ -15,7 +15,8 @@ wechat:
   appsecret: 1e4e07f76b2373661467826703bf2945
   token-url: https://api.weixin.qq.com/cgi-bin/token
   user-info-url: https://api.weixin.qq.com/cgi-bin/user/info
-
+  msg:
+    application: 70R_vw45Aj-byhQ89Q0fY0GH7dfTmC_SElEoGao2WBU
 
 path:
   file:

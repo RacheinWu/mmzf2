@@ -7,6 +7,7 @@ import com.rachein.mmzf2.entity.DB.Article;
 import com.rachein.mmzf2.entity.DB.Draft;
 import com.rachein.mmzf2.entity.DB.TableHeadVo;
 import com.rachein.mmzf2.entity.RO.DraftApplicationRo;
+import com.rachein.mmzf2.entity.RO.DraftCheckRo;
 import com.rachein.mmzf2.entity.VO.ArticleVo;
 import com.rachein.mmzf2.result.Result;
 import io.swagger.annotations.Api;
@@ -115,6 +116,12 @@ public class DraftController {
         return Result.success("申请成功！请等待一级管理员审核。");
     }
 
+
+    @ApiOperation("管理员审核推文")
+    @PostMapping("draft/public/check")
+    public void check(@RequestBody DraftCheckRo ro) {
+        draftService.check(ro);
+    }
     //    @ApiOperation(value = "发布推文", tags = "本操作，将使得推文公开，所有人群包括没有订阅的人群也将可以访问")
 //    @GetMapping("draft/release/{media_id}")
 //    public Result<Object> send(@PathVariable("media_id") String mediaId) {

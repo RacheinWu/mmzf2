@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.rachein.mmzf2.entity.enums.DraftMethodEnum;
 import com.rachein.mmzf2.entity.enums.DraftStateEnum;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,6 +43,8 @@ public class Draft implements Serializable {
 
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
+    @ApiModelProperty("申请人微信号")
+    private String applicantId;
 
 
 }
