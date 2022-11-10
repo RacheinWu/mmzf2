@@ -41,12 +41,15 @@ public class StudentLow12Info implements Serializable {
     @TableField("nickname")
     private String nickname;
 
+    private Integer age;
+
     @TableField("gender")
     private Integer gender;
 
     @ApiModelProperty("名族")
     @TableField("minzu")
     private String minzu;
+
 
     @ApiModelProperty("政治面貌")
     @TableField("zhengzhimianmao")

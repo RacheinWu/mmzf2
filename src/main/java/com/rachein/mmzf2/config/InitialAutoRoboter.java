@@ -1,9 +1,12 @@
 package com.rachein.mmzf2.config;
 
+import com.rachein.mmzf2.core.service.ITableHeadVoService;
 import com.rachein.mmzf2.core.service.IUserService;
 
 import com.rachein.mmzf2.core.service.impl.UserQueue;
+import com.rachein.mmzf2.entity.DB.TableHead;
 import com.rachein.mmzf2.redis.RedisService;
+import com.rachein.mmzf2.redis.myPrefixKey.TableHeadPrefix;
 import com.rachein.mmzf2.utils.AccessTokenUtil;
 import com.rachein.mmzf2.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
+import java.util.List;
 
 @Configuration
 @Slf4j
@@ -43,6 +46,10 @@ public class InitialAutoRoboter {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private ITableHeadVoService tableHeadVoService;
+
+
     @Bean
     public void run() {
         log.info(">>>>>>>>>>>>>>>>> 读取配置中...");
@@ -64,7 +71,20 @@ public class InitialAutoRoboter {
         //
         UserQueue.listen();
         log.info("<<<<<<<<<<<<<<<<<< 用户监听队列已开启....");
+        //redis
+        loadingRedisDATA();
+    }
 
+    /**
+     * 把初始数据放到redis中
+     */
+    private void loadingRedisDATA() {
+        //表头
+        List<TableHead> head = tableHeadVoService.lambdaQuery()
+                .eq(TableHead::getBelong, "draft-review::list")
+                .list();
+        redisService.set(TableHeadPrefix.GET_DRAFT_HEAD, TableHeadPrefix.DRAFT_HEAD_PREFIX, head);
+        log.info("[Redis] >>>>>>>>>>>>>>>>> 读取表头数据 -> 【成功】");
     }
 
 

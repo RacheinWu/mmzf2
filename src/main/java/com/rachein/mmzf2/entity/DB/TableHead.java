@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @TableName("table_head_vo")
 @ApiModel(value = "TableHeadVo对象", description = "")
-public class TableHeadVo implements Serializable {
+public class TableHead implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

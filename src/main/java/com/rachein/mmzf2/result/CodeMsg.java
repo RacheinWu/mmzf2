@@ -35,9 +35,11 @@ public class CodeMsg {
     //推文：5004xx
     public static CodeMsg DRAFT_NOT_FOUND = new CodeMsg(500401, "找不到对应的推文！");
     public static CodeMsg DRAFT_APPLICATION_FAIL = new CodeMsg(500402, "申请发表失败，请重新再试！");
+    public static CodeMsg DRAFT_RELEASE_FAIL = new CodeMsg(500402, "推文发送失败，请重新再试！");
 
     //文章: 5005xx
     public static CodeMsg ARTICLE_NOT_FOUND = new CodeMsg(500501, "找不到对应的文章！");
+    public static CodeMsg ARTICLE_COVER_ERROR = new CodeMsg(500502, "上传封面失败！");
 
 
 

@@ -122,4 +122,28 @@ public class HttpRequestUtils {
             throw new GlobalException(CodeMsg.RESPONSE_ERROR);
         }
     }
+
+    public static Response post(String url, File file, String fileName){
+        //设置请求体
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)//设置文件的格式
+                .addFormDataPart("media", file.getName(),//注意，这里的参数名字需要自己根据需求进行修改，可以进行改造
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file))//设置参数
+                .build();
+//        System.out.println(url);
+        //设置请求：一直是url + 请求参数（因为是post请求）
+        Request request = new Request.Builder().url(url)
+                .post(requestBody)
+                .build();
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return response;
+            }
+            else throw new GlobalException(CodeMsg.RESPONSE_ERROR);
+        } catch (IOException e) {
+            throw new GlobalException(CodeMsg.RESPONSE_ERROR);
+        }
+    }
 }

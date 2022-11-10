@@ -32,7 +32,7 @@ public class Draft implements Serializable {
 
     private DraftStateEnum state;
 
-    private String coverImg;
+    private String imgCover;
     private LocalDateTime releaseTime;
     private LocalDateTime applicationTime;
     private DraftMethodEnum method;

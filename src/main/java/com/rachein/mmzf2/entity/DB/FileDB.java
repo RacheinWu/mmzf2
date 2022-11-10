@@ -64,4 +64,8 @@ public class FileDB implements Serializable {
     @TableField("media_id")
     private String mediaId;
 
+    @TableField("relative_path")
+    private String relativePath;
+
+
 }

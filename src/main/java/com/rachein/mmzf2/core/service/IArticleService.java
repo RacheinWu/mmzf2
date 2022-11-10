@@ -43,7 +43,8 @@ public interface IArticleService extends IService<Article> {
 
     Map<Long, List<ArticleVo>> listDraft();
 
-    void review(ArticleReviewRo articleId);
 
     void updateTitle(Long articleId, String newTile);
+
+    void updateAuthor(Long articleId, String author);
 }

@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author 华南理工大学 吴远健
@@ -83,8 +85,7 @@ public class FileUtils {
         fileDB.setType(file_type);
         fileDB.setUrl(network_path);
         fileDB.setSuffix(extension);
-//        fileDB.setVx_url(vx_url);
-//        fileDB.setMediaId(media_id);
+        fileDB.setRelativePath(formPath + "/" + newFileName);
         log.info(fileDB.toString());
         return network_path;
     }
@@ -133,6 +134,7 @@ public class FileUtils {
         fileDB.setUrl(network_path);
         fileDB.setSuffix(extension);
 //        fileDB.setVx_url(vx_url);
+        fileDB.setRelativePath(formPath + "/" + newFileName);
 //        fileDB.setMediaId(media_id);
         log.info(fileDB.toString());
         return fileDB;
@@ -165,6 +167,41 @@ public class FileUtils {
         return true;
     }
 
-
+    /**
+     * 保存到本地
+     * @param multipartFile 上传的文件
+     * @return file对象，相对地址
+     */
+    public static Map<String, Object> save2(MultipartFile multipartFile) {
+        //先保存到本地
+        //originalName:
+        String originalFilename = multipartFile.getOriginalFilename();
+        //获取后缀
+        String extension = "." + FilenameUtils.getExtension(originalFilename);
+        //路径名称
+        String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) +
+                UUIDUtil.uuid().substring(6) + extension;
+        String formPath = from_path;
+        String dataDirPath = local_path + formPath;
+        File dataDir = new File(dataDirPath);//document
+        if (!dataDir.exists()) dataDir.mkdirs();
+        log.info("存储的地址为：" + dataDirPath);
+        File file = new File(dataDir, newFileName);
+        //保存到本地:
+        try {
+            //保存到本地
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new GlobalException(CodeMsg.FILE_ERROR);
+        }
+        //获取相对地址:
+        String relative_path = formPath + "/" + newFileName;
+        Map<String, Object> map = new HashMap<>();
+        //返回一个相对地址和file类，file类用于后面的操作
+        map.put("file", file);
+        map.put("relative_path", relative_path);
+        return map;
+    }
 
 }

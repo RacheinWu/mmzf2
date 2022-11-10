@@ -48,8 +48,10 @@ public class DraftReleaseMethod implements Serializable {
     private String major;
 
     @ApiModelProperty("身份 0：高一二同学 1：高三学生 2：大学生")
-    @TableField("identity")
+    @TableField(exist = false)
     private IdentityEnum identity;
 
+    @TableField("identity")
+    private String identity_list;
 
 }

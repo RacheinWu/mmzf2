@@ -46,5 +46,4 @@ public interface IVXService {
      */
     String DraftSave(String draftId);
 
-
 }

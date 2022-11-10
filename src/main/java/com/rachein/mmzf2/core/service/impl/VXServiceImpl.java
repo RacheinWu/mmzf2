@@ -5,12 +5,15 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.rachein.mmzf2.exception.GlobalException;
 import com.rachein.mmzf2.result.CodeMsg;
+import com.rachein.mmzf2.utils.AccessTokenUtil;
 import com.rachein.mmzf2.utils.HttpRequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -54,5 +57,18 @@ public class VXServiceImpl {
             throw new GlobalException(CodeMsg.USER_LOGIN_ERROR);
         }
         return tokenInfo;
+    }
+
+    public String uploadCover(File file) {
+        String url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token="+ AccessTokenUtil.getToken() +"&type=thumb";
+        Response response = HttpRequestUtils.post(url, file, "file");
+        try {
+            String response_json = response.body().string();
+            log.info(response_json);
+            return JSON.parseObject(response_json).getString("media_id");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

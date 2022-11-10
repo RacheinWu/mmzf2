@@ -43,24 +43,12 @@ class ArticleController {
         return Result.success(vo);
     }
 
-
     @ApiOperation("创建文章")
     @PostMapping("article/create")
     public Result<Long> create(@RequestBody ArticleAddRo ro) {
         Long articleId = articleService.createArticle(ro);
         return Result.success(articleId);
     }
-
-    /**
-     * 待开发
-     * @param draftId
-     * @return
-     */
-//    @ApiOperation("撤回公布的推文")
-//    @GetMapping("article/remove/{local_id}")
-//    public Result<Object> removeArticleRelease(@PathVariable("local_id") String localId) {
-//        return Result.success("撤销成功！");
-//    }
 
     @ApiOperation("删除草稿中的文章【根据文章的id】")
     @GetMapping("article/remove/{article_id}")
@@ -90,5 +78,10 @@ class ArticleController {
         return Result.success("修改成功");
     }
 
+    @ApiOperation("更改作者")
+    @PostMapping("article/author/update")
+    public void updateAuthor(@RequestParam("author") String author, @RequestParam("article_id") Long articleId) {
+        articleService.updateAuthor(articleId, author);
+    }
 
 }

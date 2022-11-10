@@ -55,6 +55,8 @@ public class StudentHighInfo  {
     @TableField("phone")
     private String phone;
 
+    private Integer age;
+
     @ApiModelProperty("籍贯")
     @TableField("address")
     private String address;

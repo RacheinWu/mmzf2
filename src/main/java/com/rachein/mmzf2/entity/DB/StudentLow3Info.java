@@ -43,6 +43,7 @@ public class StudentLow3Info implements Serializable {
     @TableField("openid")
     private String openid;
 
+    private Integer age;
 
     @ApiModelProperty("名族")
     @TableField("minzu")

@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class DraftCheckRo {
     @JsonProperty("draft_id")
-    private String draftId;
+    private Long draftId;
     private Boolean result;
     private String remark;
 }

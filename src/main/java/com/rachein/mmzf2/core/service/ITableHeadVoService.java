@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.service;
 
-import com.rachein.mmzf2.entity.DB.TableHeadVo;
+import com.rachein.mmzf2.entity.DB.TableHead;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author 吴远健
  * @since 2022-11-07
  */
-public interface ITableHeadVoService extends IService<TableHeadVo> {
+public interface ITableHeadVoService extends IService<TableHead> {
 
 }

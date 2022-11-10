@@ -1,6 +1,6 @@
 package com.rachein.mmzf2.core.mapper;
 
-import com.rachein.mmzf2.entity.DB.TableHeadVo;
+import com.rachein.mmzf2.entity.DB.TableHead;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 吴远健
  * @since 2022-11-07
  */
-public interface TableHeadVoMapper extends BaseMapper<TableHeadVo> {
+public interface TableHeadVoMapper extends BaseMapper<TableHead> {
 
 }

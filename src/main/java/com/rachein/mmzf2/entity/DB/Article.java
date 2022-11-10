@@ -47,9 +47,11 @@ public class Article implements Serializable {
     private String author;
 
     @ApiModelProperty("推文id号")
+    @TableField("draft_id")
     private Long draftId;
 
     @ApiModelProperty("活动id号")
+    @TableField("activity_id")
     private Long activityId;
 
     @ApiModelProperty("封面地址url")
@@ -58,19 +60,19 @@ public class Article implements Serializable {
 
     @ApiModelProperty("阅读全文的url")
     @TableField("content_source_url")
-    private String contentSourceUrl;
+    private String content_source_url;
 
     @ApiModelProperty("图文消息的封面图片素材id（一定是永久MediaID） ")
     @TableField("thumb_media_id")
-    private String thumbMediaId;
+    private String thumb_media_id;
 
     @ApiModelProperty("Uint32 是否打开评论，0不打开(默认)，1打开 ")
     @TableField("need_open_comment")
-    private Integer needOpenComment;
+    private Integer need_open_comment;
 
     @ApiModelProperty("Uint32 是否粉丝才可评论，0所有人可评论(默认)，1粉丝才可评论")
     @TableField("only_fans_can_comment")
-    private Integer onlyFansCanComment;
+    private Integer only_fans_can_comment;
 
     @ApiModelProperty("是否显示封面，1为显示，0为不显示")
     @TableField("show_cover_pic")
@@ -78,5 +80,7 @@ public class Article implements Serializable {
 
     @ApiModelProperty("标题")
     private String title;
+
+    private String digest;
 
 }

@@ -11,9 +11,9 @@ import lombok.Getter;
  */
 @Getter
 public enum IdentityEnum {
-    G12(0, "高一二学生"),
-    G3(1, "高三学生"),
-    C(2, "大学生");
+    I0(0, "高一二学生"),
+    I1(1, "高三学生"),
+    I2(2, "大学生");
 
     @EnumValue
     private final Integer val;
@@ -25,4 +25,8 @@ public enum IdentityEnum {
         this.val = val;
         this.desc = desc;
     }
+
+
+
+
 }

@@ -1,14 +1,12 @@
 package com.rachein.mmzf2.redis;
 
 import com.alibaba.fastjson.JSON;
-import com.rachein.mmzf2.redis.myPrefixKey.ACTokenKey;
-import com.rachein.mmzf2.redis.myPrefixKey.ArticleKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,6 +56,20 @@ public class RedisService {
             returnToPool(jedis);
         }
 
+    }
+
+    public <T> List<T> getList(KeyPrefix prefix, String key, Class<T> clazz) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            //对key增加前缀，即可用于分类，也避免key重复
+            String realKey = prefix.getPrefix() + key;
+            String str = jedis.get(realKey);
+            List<T> list = JSON.parseArray(str, clazz);
+            return list;
+        } finally {
+            returnToPool(jedis);
+        }
     }
 
     /**

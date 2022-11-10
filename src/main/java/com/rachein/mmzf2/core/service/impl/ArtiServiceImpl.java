@@ -15,7 +15,9 @@ import com.rachein.mmzf2.redis.RedisService;
 import com.rachein.mmzf2.redis.myPrefixKey.ArticleKey;
 import com.rachein.mmzf2.result.CodeMsg;
 import com.rachein.mmzf2.utils.FileUtils;
+import com.rachein.mmzf2.utils.MultipartToFileUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,6 +60,9 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
     private IArticleService articleService;
 
     @Autowired
+    private VXServiceImpl vxService;
+
+    @Autowired
     RedisService redisService;
 
     @Value("resource.article.defaultCoverUrl")
@@ -64,20 +70,27 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
 
     @Override
-    public FileVo coverUpload(MultipartFile file, Long articleId) {
-        //校验文件
-        FileUtils.judge(file, 5000l, "img");
-        //保存到本地
-        FileDB save = FileUtils.save(file, null, null);
-        //url保存到服务器
-        fileService.save(save);
+    public FileVo coverUpload(MultipartFile multipartFile, Long articleId) {
+        // 校验文件
+        FileUtils.judge(multipartFile, 6400L, "img");
+        // 保存到本地
+        Map<String, Object> map = FileUtils.save2(multipartFile);
+        File file = (File) map.get("file");
+        String relative_path = (String) map.get("relative_path");
+        // 上传到微信服务器上
+        String media_id = vxService.uploadCover(file);
+        // 文章表更新
+        String network_path = FileUtils.local_url + FileUtils.reflect_path_prefix + relative_path;
+        articleService.lambdaUpdate()
+                .eq(Article::getDraftId, articleId)
+                .set(Article::getThumb_media_id, media_id)
+                .set(Article::getCoverPath, network_path)
+                .update();
         FileVo vo = new FileVo();
-        System.out.println(vo);
-        BeanUtils.copyProperties(save, vo);
-        //更新对应推文的封面url:
-        articleService.lambdaUpdate().eq(Article::getId, articleId).set(Article::getCoverPath, vo.getUrl()).update();
+        vo.setUrl(network_path);
         return vo;
     }
+
 
     @Override
     public FileVo materialUpload(MultipartFile file) {
@@ -101,8 +114,6 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         article.setDraftId(ro.getDraftId());
         article.setActivityId(ro.getActivityId());
         save(article);
-        //redis中也保存一份
-//        redisService.set(ArticleKey.getById,articleId.toString(),article);
         return article.getId();
     }
 
@@ -117,9 +128,10 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
     @Override
     public Map<Long, List<ArticleVo>> listDraft() {
-        //获取数据库中所有的推文的id
+        //获取数据库中所有的推文的id（未发布的）
         Map<Long, List<ArticleVo>> map = new HashMap<>();
         Set<Long> draftIds = draftService.lambdaQuery()
+
                 .select(Draft::getId)
                 .list()
                 .stream().map(Draft::getId)
@@ -135,59 +147,31 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
         return map;
     }
 
-    @Override
-    public void review(ArticleReviewRo ro) {
-        //先从数据库中查询该文章：
-        Article one = lambdaQuery().eq(Article::getId, ro.getArticleId()).select(Article::getStatus, Article::getAuthor).one();
-        if (Objects.isNull(one)) {
-            throw new GlobalException(CodeMsg.BIND_ERROR);
-        }
-        //校验result：
-        if (ro.getResult()) {   //审核通过：
-
-            //查询到发送的群体，是群发还是条件发
-            //微信公众号发送推文
-        }
-        else {                     //审核不通过：
-
-        }
-        //微信公众号发送结果消息:
-        String msg = ro.getRemark();
-
-        //从数据库中更新状态
-        one.setStatus(1);
-        lambdaUpdate().eq(Article::getId, ro.getArticleId()).update(one);
-    }
 
     @Override
     public void updateTitle(Long articleId, String newTile) {
-        Article a = new Article();
-        a.setTitle(newTile);
-        lambdaUpdate().eq(Article::getId, articleId)
-                .update(a);
+        lambdaUpdate().eq(Article::getId, articleId).set(Article::getTitle, newTile).update();
+
+    }
+
+    @Override
+    public void updateAuthor(Long articleId, String author) {
+        lambdaUpdate().eq(Article::getId, articleId).set(Article::getAuthor, author).update();
     }
 
     @Override
     public void removeArticleById(Long articleId) {
-        //从redis中清除
-        redisService.delete(ArticleKey.getById,articleId.toString());
+//        //从redis中清除
+//        redisService.delete(ArticleKey.getById,articleId.toString());
         //从文章表中清除
         lambdaUpdate().eq(Article::getId, articleId).remove();
+        //清楚
     }
 
     @Override
     public ArticleInfoVo getArticleInfoById(String articleId) {
-        //先从redis中获取信息
-//        Article article = redisService.get(ArticleKey.getById, articleId, Article.class);
         Article article = lambdaQuery().eq(Article::getId, articleId).one();
         ArticleInfoVo infoVo = new ArticleInfoVo();
-        //如果redis中没数据，那么从数据库中获取信息:
-//        if (Objects.isNull(article)){
-//            article = lambdaQuery()
-//                    .eq(Article::getId, articleId)
-//                    .select(Article::getId, Article::getContent, Article::getAuthor, Article::getTitle)
-//                    .one();
-//        }
         BeanUtils.copyProperties(article, infoVo);
         return infoVo;
     }
@@ -210,22 +194,6 @@ public class ArtiServiceImpl extends ServiceImpl<BaseMapper<Article>, Article> i
 
     @Override
     public List<ArticleVo> listArticleByDraftId(Long draftId) {
-        //从数据库中获取中间表的信息：
-//        List<DraftArticleRelation> relations = draftArticleService.lambdaQuery()
-//                .eq(DraftArticleRelation::getDraftId, draftId)
-//                .list();
-//        //遍历中间表信息，获取每一个article的信息:
-//        List<ArticleVo> articleVos = new ArrayList<>();
-//        relations.forEach(t -> {
-//            Article article = lambdaQuery()
-//                    .eq(Article::getId, t.getArticleId())
-//                    .select(Article::getTitle, Article::getCoverPath, Article::getId)
-//                    .one();
-//            ArticleVo articleVo = new ArticleVo();
-//            BeanUtils.copyProperties(article, articleVo);
-//            articleVos.add(articleVo);
-//        });
-
         /**
          * 1.从article表 找到draft_id = draftId，
          *  select(Article::getTitle, Article::getCoverPath, Article::getId)
